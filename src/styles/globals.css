@@ -1,129 +1,87 @@
-/* Self-hosted variable font (no external network request at runtime). */
-@import "@fontsource-variable/inter";
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /*
-  TOKEN LAYER
-  Single source of truth for color, radius, and shadow. tailwind.config.mjs
-  maps these to utility classes. Light mode only: there is no .dark block and
-  no theme-switching logic anywhere in the project.
-
-  Colors are stored as raw HSL channels (not hsl(...) strings) so Tailwind can
-  wrap them with alpha, e.g. `bg-primary/80`.
+  Design tokens — every color is a CSS variable.
+  Light mode ships now. Dark mode is intentionally a *variable swap only*:
+  add values under `:root[data-theme="dark"]` below and nothing in the
+  component layer needs to change (no hard-coded color literals anywhere).
 */
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 215 28% 14%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 215 28% 14%;
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
 
-    /* Accent: a single dark navy. Used sparingly (CTAs, chips, active nav). */
-    --primary: 213 74% 19%;
-    --primary-foreground: 0 0% 100%;
+  --font-sans: var(--font-sans-stack);
 
-    /* Neutral surface for alternating sections. */
-    --secondary: 210 24% 96%;
-    --secondary-foreground: 215 28% 14%;
-
-    --muted: 210 24% 96%;
-    --muted-foreground: 215 16% 42%;
-
-    --accent: 213 74% 19%;
-    --accent-foreground: 0 0% 100%;
-
-    --border: 214 20% 88%;
-    --input: 214 20% 84%;
-    --ring: 213 74% 19%;
-
-    /* Square corners across the whole system. */
-    --radius: 0px;
-
-    /* Subtle, industrial shadows. Motion on hover is limited to these. */
-    --shadow-card: 0 1px 2px hsl(215 28% 14% / 0.04),
-      0 1px 1px hsl(215 28% 14% / 0.06);
-    --shadow-card-hover: 0 6px 20px hsl(215 28% 14% / 0.1);
-  }
-
-  * {
-    @apply border-border;
-  }
-
-  html {
-    -webkit-text-size-adjust: 100%;
-    scroll-behavior: smooth;
-  }
-
-  body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  }
-
-  /* Numeric alignment for anything tabular (specs, phone, dates, stats). */
-  .tabular {
-    font-variant-numeric: tabular-nums;
-  }
-
-  /* Consistent focus ring for keyboard users across native + custom controls. */
-  :focus-visible {
-    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
-  }
-
-  /* Honor reduced-motion: kill the hero Ken Burns and smooth scrolling. */
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-    }
-  }
+  --radius-btn: var(--radius);
 }
 
-@layer components {
-  /* Uppercase eyebrow label seen throughout the inspirations. */
-  .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.14em] text-primary;
-  }
+:root {
+  /* Surfaces */
+  --background: #ffffff;
+  --foreground: #15181e;
+  --muted: #f4f6f9;
+  --muted-foreground: #59626f;
+  --card: #ffffff;
+  --card-foreground: #15181e;
 
-  /* Slash-prefixed tag chip (inspiration screenshot 1), recolored to navy. */
-  .chip {
-    @apply inline-flex items-center gap-1.5 text-sm font-medium text-foreground;
-  }
-  .chip::before {
-    content: "/";
-    @apply font-bold text-primary;
-  }
+  /* Lines & focus */
+  --border: #e3e7ee;
+  --input: #d9dee7;
+  --ring: #4169e1;
 
-  /*
-    Minimal readable styling for rendered Markdown bodies on detail pages.
-    Kept local (no @tailwindcss/typography dependency) since preflight strips
-    list markers and heading sizes.
-  */
-  .prose-body :where(h2) {
-    @apply mt-8 text-2xl font-semibold tracking-tight;
+  /* Accent — royal blue */
+  --accent: #4169e1;
+  --accent-foreground: #ffffff;
+  --accent-hover: #3355c9;
+  --accent-soft: #eef2fd;
+
+  /* Rounding — used sparingly (buttons, pills, small controls) */
+  --radius: 0.5rem;
+
+  --font-sans-stack: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+}
+
+/*
+  Dark mode readiness (not enabled at launch). When the brand is ready,
+  drop values here and flip data-theme on <html>. No component edits needed.
+
+  :root[data-theme="dark"] {
+    --background: #0d0f13;
+    --foreground: #f2f4f8;
+    ...
   }
-  .prose-body :where(h3) {
-    @apply mt-6 text-xl font-semibold tracking-tight;
-  }
-  .prose-body :where(ul) {
-    @apply my-4 list-disc space-y-2 pl-6 marker:text-primary;
-  }
-  .prose-body :where(ol) {
-    @apply my-4 list-decimal space-y-2 pl-6 marker:text-primary;
-  }
-  .prose-body :where(a) {
-    @apply font-medium text-primary underline underline-offset-4;
-  }
-  .prose-body :where(strong) {
-    @apply font-semibold text-foreground;
+*/
+
+html {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+}
+
+/* Respect reduced-motion for View Transitions */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

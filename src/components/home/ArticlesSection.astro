@@ -1,0 +1,69 @@
+---
+// Articles section (ref: articles.png): big heading, a left column of dated
+// article links separated by hairlines, and a large featured image at right.
+import { getCollection } from "astro:content";
+import Media from "@/components/Media.astro";
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const featured = posts[0];
+const fmt = (d) =>
+  d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
+---
+
+<section class="border-b border-border">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      {/* Left: heading + list */}
+      <div>
+        <div class="flex items-end justify-between gap-4">
+          <h2 class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            Insights &amp; Resources
+          </h2>
+          <a
+            href="/articles"
+            class="hidden shrink-0 text-sm font-semibold text-accent hover:underline sm:inline"
+            >All articles</a
+          >
+        </div>
+
+        <ul class="mt-8 divide-y divide-border border-t border-border">
+          {
+            posts.map((post) => (
+              <li>
+                <a href={`/articles/${post.id}`} class="group block py-6">
+                  <p class="text-sm text-muted-foreground">
+                    {fmt(post.data.pubDate)}
+                  </p>
+                  <h3 class="mt-1 text-lg font-medium text-foreground transition-colors group-hover:text-accent">
+                    {post.data.title}
+                  </h3>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <a
+          href="/articles"
+          class="mt-6 inline-block text-sm font-semibold text-accent hover:underline sm:hidden"
+          >All articles</a
+        >
+      </div>
+
+      {/* Right: featured image */}
+      <div class="order-first lg:order-last">
+        <a href={featured ? `/articles/${featured.id}` : "/articles"} class="block h-full">
+          <div class="aspect-[4/3] h-full overflow-hidden border border-border">
+            <Media
+              src={featured?.data.heroImage}
+              alt={featured?.data.title || ""}
+              label="article photo"
+            />
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

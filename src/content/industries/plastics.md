@@ -1,9 +1,10 @@
 ---
-title: Plastics & Rubber
-label: Plastics & Rubber
-icon: plastics
-order: 5
-draft: false
+name: Plastics & Rubber
+summary: >-
+  Flexural, tensile, and peel-adhesion testing support for plastics, rubber, and
+  polymer manufacturers.
+order: 40
 ---
 
-Grips, fixtures, and calibration for plastics and rubber tensile and tear testing.
+Instru-Met supports plastics, rubber, and polymer testing with bend and flexural
+fixtures, accredited calibration, and repair of universal testing machines.

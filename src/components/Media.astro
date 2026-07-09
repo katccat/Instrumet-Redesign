@@ -1,0 +1,37 @@
+---
+// Renders a real image when `src` is provided; otherwise a clearly labeled
+// placeholder block (no generated/placeholder imagery — per the brief).
+import { cn } from "@/lib/utils";
+
+const {
+  src,
+  alt = "",
+  label = "photo",
+  class: className,
+  imgClass,
+  loading = "lazy",
+} = Astro.props;
+---
+
+{
+  src ? (
+    <img
+      src={src}
+      alt={alt}
+      loading={loading}
+      decoding="async"
+      class={cn("h-full w-full object-cover", imgClass, className)}
+    />
+  ) : (
+    <div
+      class={cn(
+        "flex h-full w-full items-center justify-center border border-dashed border-border bg-muted px-4 text-center text-xs font-medium text-muted-foreground",
+        className
+      )}
+      role="img"
+      aria-label={`Placeholder image: ${label}`}
+    >
+      Image: {label}
+    </div>
+  )
+}

@@ -1,16 +1,24 @@
 ---
-title: Load Cells
-summary: Repair, replacement, and recalibration of tension and compression load cells, including S-type cells.
-order: 2
-icon: loadcell
-image: /images/product-load-cells.svg
-imageAlt: Precision load cell
-standards: ["ASTM E4"]
-featured: false
-draft: false
+name: Load Cells
+category: Load Cells
+summary: >-
+  Universal tension and compression load cells — repaired, recalibrated, and
+  verified. We service Instron canister types (2511, 2512, 2518, 2525), S-Beam,
+  single-point, and pancake cells.
+image: /images/load-cell-repair.jpg
+order: 10
 ---
 
-We repair and recalibrate load cells for universal testing machines, including
-S-type cells. When a cell cannot be economically repaired, we supply tested
-replacements from our warehouse. Every cell we return is verified against
-ASTM E4 force standards.
+Instru-Met repairs Instron™ load cells, and many others, that may be
+unresponsive, unbalanced, and/or fail to give accurate force readings.
+
+Types we service include:
+
+- Universal Tension / Compression Load Cells
+- Instron canister types (2511, 2512, 2518, 2525)
+- S-Beam type cells
+- Single Point load cells
+- Pancake type cells
+
+Every repaired load cell can be returned with A2LA-accredited ASTM E4 or
+ISO 7500 verification.

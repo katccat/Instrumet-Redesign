@@ -1,73 +1,41 @@
 ---
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-
-// Hero. Headline and subhead come straight from the source site.
-// The one permitted motion flourish: a slow CSS Ken Burns on the image,
-// disabled under prefers-reduced-motion (see the scoped <style> below).
+import Button from "@/components/ui/Button.astro";
+import Media from "@/components/Media.astro";
+import { site } from "@/config/site.js";
 ---
 
-<section class="relative isolate overflow-hidden bg-primary">
-  <!-- Image layer. Intended real image noted in public/images/hero.svg. -->
-  <div class="absolute inset-0 -z-10">
-    <img
-      src="/images/hero.svg"
-      alt=""
-      class="hero-image h-full w-full object-cover"
-      fetchpriority="high"
-    />
-    <!-- Dark overlay for legible overlaid text. -->
-    <div class="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/40"></div>
-  </div>
-
-  <div class="container flex min-h-[560px] flex-col justify-center py-24 lg:min-h-[640px]">
-    <div class="max-w-2xl">
-      <!-- Accent left-border eyebrow, echoing the Instron hero band. -->
-      <p class="mb-5 border-l-2 border-white/70 pl-4 text-xs font-semibold uppercase tracking-[0.16em] text-white/80">
-        Classic Tensile Tester Experts
+<section class="border-b border-border">
+  <div
+    class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24"
+  >
+    <div>
+      <p class="text-sm font-semibold tracking-wide text-accent">
+        Strength of Materials Test Equipment
       </p>
-      <h1 class="text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-        Strength of Materials Test Equipment Company
+      <h1
+        class="mt-4 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+      >
+        Classic tensile testers, kept accurate for life.
       </h1>
-      <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
-        Rebuilt and retrofit universal test frames, accredited calibration, and
-        on-site service for tensile testing systems. Serving customers for over
-        50 years.
+      <p class="mt-6 max-w-xl text-lg text-muted-foreground">
+        For {new Date().getFullYear() - site.foundedYear}+ years Instru-Met has
+        remanufactured, repaired, and calibrated tensile and compression testing
+        machines — on-site and in our Union, NJ lab. Accredited. NIST-traceable.
+        No end-of-life.
       </p>
-      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-        <a href="/products" class={cn(buttonVariants({ variant: "primary", size: "lg" }), "bg-white text-primary hover:bg-white/90")}>
-          Explore Equipment
-        </a>
-        <a href="/contact" class={buttonVariants({ variant: "onImage", size: "lg" })}>
-          Talk to an Engineer
-        </a>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <Button href="/services" size="lg">Explore services</Button>
+        <Button href="/contact" size="lg" variant="outline">Contact us</Button>
       </div>
+    </div>
+
+    <div class="aspect-[4/3] overflow-hidden border border-border">
+      <Media
+        src="/images/single-column.jpg"
+        alt="Instru-Met tensile testing machine with software"
+        label="tensile testing machine"
+        loading="eager"
+      />
     </div>
   </div>
 </section>
-
-<style>
-  /* Ken Burns: slow zoom + drift. Kept in CSS (no JS, no Framer Motion). */
-  .hero-image {
-    transform-origin: center;
-    animation: hero-kenburns 26s ease-out both;
-    will-change: transform;
-  }
-
-  @keyframes hero-kenburns {
-    from {
-      transform: scale(1) translate3d(0, 0, 0);
-    }
-    to {
-      transform: scale(1.09) translate3d(-1.5%, -1.5%, 0);
-    }
-  }
-
-  /* Disable the effect entirely for users who prefer reduced motion. */
-  @media (prefers-reduced-motion: reduce) {
-    .hero-image {
-      animation: none;
-      transform: none;
-    }
-  }
-</style>

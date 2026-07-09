@@ -1,0 +1,84 @@
+---
+// Accreditations / certifications — a vertical array. A2LA is the most
+// important accreditation and is featured prominently at the top.
+import SectionHeading from "@/components/SectionHeading.astro";
+import { site } from "@/config/site.js";
+
+const standards = [
+  {
+    scope: "Force Verification (Compression / Tension)",
+    refs: "ASTM E4 · ISO 7500-1",
+  },
+  {
+    scope: "Extensometers — Displacement / Strain, Gage Length & Crosshead Displacement",
+    refs: "ASTM E83 · ISO 9513 · ASTM E2309",
+  },
+  {
+    scope: "Testing Machine Crosshead Speed",
+    refs: "ASTM E2658",
+  },
+  {
+    scope: "Quality Management",
+    refs: "ISO/IEC 17025 · ANSI/NCSL Z540-1",
+  },
+];
+---
+
+<section class="border-b border-border">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <SectionHeading
+      eyebrow="Accreditations & Certifications"
+      title="Accredited where it counts"
+      intro="Our calibrations are traceable to NIST and performed to internationally recognized standards."
+    />
+
+    <div class="mt-12 flex flex-col gap-4">
+      {/* Featured: A2LA */}
+      <a
+        href={site.a2laDirectoryUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group flex flex-col items-center gap-6 border-2 border-accent bg-accent-soft p-8 transition-colors hover:bg-background sm:flex-row"
+      >
+        <img
+          src="/images/a2la-accredited.png"
+          alt="A2LA Accredited — Certificate #1377.01"
+          width="180"
+          height="151"
+          class="h-auto w-40 shrink-0"
+        />
+        <div class="text-center sm:text-left">
+          <p class="text-sm font-semibold tracking-wide text-accent">
+            Most important accreditation
+          </p>
+          <h3 class="mt-1 text-xl font-semibold text-foreground">
+            A2LA Accredited Calibration Laboratory · Cert #1377.01
+          </h3>
+          <p class="mt-2 max-w-2xl text-sm text-muted-foreground">
+            Independently accredited by the American Association for Laboratory
+            Accreditation for calibration — your assurance of competence,
+            impartiality, and traceable results. View our public scope in the
+            A2LA directory.
+          </p>
+        </div>
+        <span
+          class="ml-auto hidden shrink-0 text-accent transition-transform group-hover:translate-x-1 sm:block"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </span>
+      </a>
+
+      {/* Vertical array of standards */}
+      {
+        standards.map((s) => (
+          <div class="flex flex-col gap-2 border border-border bg-card p-6 sm:flex-row sm:items-center sm:justify-between">
+            <p class="font-medium text-foreground">{s.scope}</p>
+            <p class="shrink-0 text-sm font-semibold tracking-wide text-accent">
+              {s.refs}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

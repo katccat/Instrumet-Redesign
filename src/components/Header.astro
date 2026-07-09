@@ -1,14 +1,41 @@
 ---
 import SiteNav from "@/components/nav/SiteNav.tsx";
-
-// Sticky header wrapper. The interactive nav is a React island; the sticky
-// shell stays in Astro. transition:persist keeps the header mounted across
-// View Transitions so it does not flash or reset on navigation.
+import { site, nav } from "@/config/site.js";
 ---
 
-<header
-  transition:persist="site-header"
-  class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
->
-  <SiteNav client:load brand="Instru-Met" />
+<header class="sticky top-0 z-50 bg-background">
+  {/* Upper tier */}
+  <div class="border-b border-border">
+    <div
+      class="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8"
+    >
+      <a href="/" class="flex items-center gap-3" aria-label={`${site.wordmark} home`}>
+        <img src="/logo.svg" alt="" width="36" height="36" class="h-9 w-9" />
+        <span class="flex flex-col leading-none">
+          <span class="text-xl font-bold tracking-tight text-foreground"
+            >{site.wordmark}</span
+          >
+          <span class="mt-0.5 text-xs text-muted-foreground">{site.tagline}</span>
+        </span>
+      </a>
+
+      <div class="ml-auto flex items-center gap-4">
+        <a
+          href={site.contact.phoneHref}
+          class="hidden text-sm font-medium text-muted-foreground hover:text-accent sm:inline"
+          >{site.contact.phone}</a
+        >
+        <a
+          href="/contact"
+          class="inline-flex h-9 items-center rounded-btn bg-accent px-4 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-hover"
+          >Contact</a
+        >
+      </div>
+    </div>
+  </div>
+
+  {/* Lower tier — interactive nav island (mega-menu + mobile hamburger) */}
+  <div class="border-b border-border">
+    <SiteNav nav={nav} client:load />
+  </div>
 </header>

@@ -1,0 +1,19 @@
+---
+// Static button/link that reuses the shadcn buttonVariants styles without
+// shipping any JS. Renders <a> when `href` is set, otherwise <button>.
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+const {
+  href,
+  variant = "default",
+  size = "default",
+  class: className,
+  ...rest
+} = Astro.props;
+
+const classes = cn(buttonVariants({ variant, size }), className);
+const Tag = href ? "a" : "button";
+---
+
+<Tag class={classes} href={href} {...rest}><slot /></Tag>

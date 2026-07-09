@@ -1,17 +1,14 @@
 // @ts-check
-import { defineConfig } from "astro/config";
-import react from "@astrojs/react";
-import tailwind from "@astrojs/tailwind";
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+import tailwindcss from '@tailwindcss/vite';
 
-// Static multi-page site. View Transitions are opted-in per layout via
-// <ClientRouter /> (see src/layouts/BaseLayout.astro), not globally forced.
+// Static multi-page marketing site (default output: 'static').
+// Deployed to Netlify — see netlify.toml.
 export default defineConfig({
-  site: "https://www.instru-met.com",
-  output: "static",
-  integrations: [
-    react(),
-    // applyBaseStyles:false keeps Tailwind's preflight out of the injected
-    // stylesheet so we control the full base layer in src/styles/globals.css.
-    tailwind({ applyBaseStyles: false }),
-  ],
+  site: 'https://instru-met.com',
+  integrations: [react()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

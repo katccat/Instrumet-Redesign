@@ -1,19 +1,74 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/home/Hero.astro";
-import ProductCategories from "@/components/home/ProductCategories.astro";
-import Industries from "@/components/home/Industries.astro";
-import RecentPosts from "@/components/home/RecentPosts.astro";
-import Certifications from "@/components/home/Certifications.astro";
+import Accreditations from "@/components/home/Accreditations.astro";
+import Customers from "@/components/home/Customers.astro";
+import ArticlesSection from "@/components/home/ArticlesSection.astro";
+import ServiceTabs from "@/components/home/ServiceTabs.tsx";
 
-// Home page: composed purely from section components, in the order defined by
-// the brief (hero, products, industries, news, certifications).
+// Pill-tab content = the service descriptions split out of the old homepage
+// (genuine articles live in the posts collection / Articles page instead).
+const serviceTabs = [
+  {
+    label: "Calibration",
+    heading: "Calibration & Verification",
+    body: "On-site calibration for tensile testers, compression testers, and force-measuring equipment — force capacity from 0.02 lbf up to 120,000 lbf in tension and compression. All calibrations are traceable to NIST and include preventive-maintenance checks during the visit.",
+    image: "/images/calibration.jpg",
+    imageAlt: "On-site calibration of a testing machine",
+    href: "/services#calibration",
+    cta: "Calibration services",
+  },
+  {
+    label: "Repair",
+    heading: "Repair & Upgrade",
+    body: "We repair test frames, load cells, extensometers, grips, and controllers — on-site through our field engineers or in our Union, NJ lab. Typical response time is under 24 hours, and repairs can be returned with accredited ASTM E4 / ISO 7500 verification.",
+    image: "/images/repair-tensile-tester.jpg",
+    imageAlt: "Tensile tester repair",
+    href: "/services#repair",
+    cta: "Repair services",
+  },
+  {
+    label: "Custom Testers",
+    heading: "Custom & Remanufactured Testers",
+    body: "With over 50 years of expertise, an in-house machine shop, and strong partnerships, we tailor, tune, and build tensile testers precisely to your specifications — mechanically, electrically, and operationally — backed by an industry-leading 24-month warranty.",
+    image: "/images/single-column.jpg",
+    imageAlt: "Remanufactured tensile tester",
+    href: "/products#load-frames",
+    cta: "See load frames",
+  },
+  {
+    label: "No End-of-Life",
+    heading: "No End-of-Life Support",
+    body: "Unlike our competitors, we are committed to supporting your tensile testing equipment for as long as it is in operation — with continuous repairs, hard-to-find parts, and performance upgrades. We keep classic machines running for the rest of their life.",
+    image: "/images/load-frame.jpg",
+    imageAlt: "Testing machine software and controls",
+    href: "/services#repair",
+    cta: "How we help",
+  },
+];
 ---
 
 <BaseLayout>
   <Hero />
-  <ProductCategories />
-  <Industries />
-  <RecentPosts />
-  <Certifications />
+  <Accreditations />
+  <Customers />
+
+  {/* Services with pill tabs */}
+  <section class="border-b border-border">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+      <p class="text-sm font-semibold tracking-wide text-accent">
+        With you every step of the way
+      </p>
+      <h2
+        class="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
+      >
+        Service &amp; Support
+      </h2>
+      <div class="mt-10">
+        <ServiceTabs tabs={serviceTabs} client:visible />
+      </div>
+    </div>
+  </section>
+
+  <ArticlesSection />
 </BaseLayout>

@@ -1,121 +1,73 @@
 ---
-import NewsletterForm from "@/components/NewsletterForm.tsx";
-import Icon from "@/components/icons/Icon.astro";
-
-// Multi-column footer. Contact facts are sourced from the live site footer
-// (address, phone, email). Social links are placeholders pointing to the
-// company YouTube presence referenced by the source; adjust hrefs as needed.
+import { site, nav } from "@/config/site.js";
+const { address } = site.contact;
 const year = new Date().getFullYear();
-
-const productLinks = [
-  { label: "Load Frames", href: "/products/load-frames" },
-  { label: "Load Cells", href: "/products/load-cells" },
-  { label: "Grips & Fixtures", href: "/products/grips-fixtures" },
-  { label: "Extensometers", href: "/products/extensometers" },
-  { label: "Calibration & Verification", href: "/products/calibration-verification" },
-  { label: "Repairs & Service", href: "/products/repairs-service" },
-];
-
-const industryLinks = [
-  { label: "Aerospace", href: "/industries/aerospace" },
-  { label: "Automotive", href: "/industries/automotive" },
-  { label: "Medical & Biomedical", href: "/industries/medical" },
-  { label: "Plastics & Rubber", href: "/industries/plastics" },
-  { label: "Textiles", href: "/industries/textiles" },
-  { label: "Research & Academia", href: "/industries/research" },
-];
-
-const resourceLinks = [
-  { label: "News & Videos", href: "/news" },
-  { label: "Calibration Standards", href: "/products/calibration-verification" },
-  { label: "About Us", href: "/about" },
-  { label: "Contact Us", href: "/contact" },
-];
 ---
 
-<footer class="border-t border-border bg-secondary">
-  <div class="container py-14">
-    <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-6">
-      <!-- Company info -->
-      <div class="lg:col-span-2">
-        <div class="flex items-center gap-2">
-          <span
-            aria-hidden="true"
-            class="grid h-8 w-8 place-items-center bg-primary text-sm font-black text-primary-foreground"
-          >
-            IM
-          </span>
-          <span class="text-lg font-bold tracking-tight">Instru-Met Corporation</span>
-        </div>
-        <p class="mt-4 max-w-xs text-sm text-muted-foreground">
-          Strength of materials test equipment company. Classic tensile tester
-          experts serving customers for over 50 years.
-        </p>
-        <address class="mt-5 space-y-2 text-sm not-italic text-muted-foreground">
-          <p class="flex items-start gap-2">
-            <Icon name="pin" class="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-            931 Lehigh Ave, Union NJ
-          </p>
-          <p class="flex items-center gap-2">
-            <Icon name="phone" class="h-4 w-4 shrink-0 text-primary" />
-            <a href="tel:9088510700" class="tabular hover:text-primary">(908) 851-0700</a>
-          </p>
-          <p class="flex items-center gap-2">
-            <Icon name="mail" class="h-4 w-4 shrink-0 text-primary" />
-            <a href="mailto:sales@instru-met.com" class="hover:text-primary">sales@instru-met.com</a>
-          </p>
-        </address>
+<footer class="border-t border-border bg-muted">
+  <div
+    class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-4 lg:px-8"
+  >
+    {/* Brand + address */}
+    <div class="lg:col-span-2">
+      <div class="flex items-center gap-3">
+        <img src="/logo.svg" alt="" width="32" height="32" class="h-8 w-8" />
+        <span class="text-lg font-bold tracking-tight text-foreground"
+          >{site.wordmark}</span
+        >
       </div>
-
-      <!-- Products -->
-      <nav aria-label="Products">
-        <h2 class="eyebrow mb-4">Products</h2>
-        <ul class="space-y-2.5 text-sm">
-          {productLinks.map((l) => (
-            <li><a href={l.href} class="text-muted-foreground hover:text-primary">{l.label}</a></li>
-          ))}
-        </ul>
-      </nav>
-
-      <!-- Industries -->
-      <nav aria-label="Industries">
-        <h2 class="eyebrow mb-4">Industries</h2>
-        <ul class="space-y-2.5 text-sm">
-          {industryLinks.map((l) => (
-            <li><a href={l.href} class="text-muted-foreground hover:text-primary">{l.label}</a></li>
-          ))}
-        </ul>
-      </nav>
-
-      <!-- Resources + newsletter -->
-      <div class="lg:col-span-2">
-        <h2 class="eyebrow mb-4">Resources</h2>
-        <ul class="space-y-2.5 text-sm">
-          {resourceLinks.map((l) => (
-            <li><a href={l.href} class="text-muted-foreground hover:text-primary">{l.label}</a></li>
-          ))}
-        </ul>
-        <div class="mt-6">
-          <h2 class="eyebrow mb-3">Newsletter</h2>
-          <p class="mb-3 text-sm text-muted-foreground">
-            Occasional updates on calibration, service, and new equipment.
-          </p>
-          <NewsletterForm client:visible />
+      <address class="mt-4 not-italic text-sm leading-relaxed text-muted-foreground">
+        {site.companyName}<br />
+        {address.street}<br />
+        {address.city}, {address.state} {address.zip}
+      </address>
+      <dl class="mt-4 space-y-1 text-sm text-muted-foreground">
+        <div class="flex gap-2">
+          <dt class="font-medium text-foreground">Phone</dt>
+          <dd><a href={site.contact.phoneHref} class="hover:text-accent">{site.contact.phone}</a></dd>
         </div>
-      </div>
+        <div class="flex gap-2">
+          <dt class="font-medium text-foreground">Email</dt>
+          <dd><a href={`mailto:${site.contact.email}`} class="hover:text-accent">{site.contact.email}</a></dd>
+        </div>
+        <div class="flex gap-2">
+          <dt class="font-medium text-foreground">Fax</dt>
+          <dd>{site.contact.fax}</dd>
+        </div>
+      </dl>
     </div>
 
-    <!-- Legal row -->
+    {/* Useful links */}
+    <nav aria-label="Footer">
+      <h2 class="text-sm font-semibold text-foreground">Explore</h2>
+      <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
+        {nav.map((item) => (
+          <li>
+            <a href={item.href} class="hover:text-accent">{item.label}</a>
+          </li>
+        ))}
+        <li><a href="/contact" class="hover:text-accent">Contact</a></li>
+      </ul>
+    </nav>
+
+    {/* Follow us */}
+    <div>
+      <h2 class="text-sm font-semibold text-foreground">Follow us</h2>
+      <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
+        {site.social.map((s) => (
+          <li>
+            <a href={s.href} target="_blank" rel="noopener noreferrer" class="hover:text-accent">{s.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-border">
     <div
-      class="mt-12 flex flex-col gap-4 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between"
+      class="mx-auto max-w-7xl px-4 py-6 text-xs text-muted-foreground sm:px-6 lg:px-8"
     >
-      <p>&copy; {year} Instru-Met Corporation. All rights reserved.</p>
-      <div class="flex items-center gap-5">
-        <!-- Social: YouTube is the channel referenced by the source site. -->
-        <a href="https://www.youtube.com/" rel="noopener" class="hover:text-primary">YouTube</a>
-        <a href="/privacy" class="hover:text-primary">Privacy</a>
-        <a href="/terms" class="hover:text-primary">Terms</a>
-      </div>
+      © {year} {site.companyName}. All rights reserved.
     </div>
   </div>
 </footer>

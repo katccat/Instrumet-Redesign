@@ -1,9 +1,11 @@
 ---
-title: Pharmaceuticals
-label: Pharmaceuticals
-icon: pharma
-order: 4
-draft: false
+name: Pharmaceuticals
+summary: >-
+  Accredited calibration and preventive maintenance for pharmaceutical and
+  medical-device testing equipment.
+order: 20
 ---
 
-Calibration and repair supporting pharmaceutical materials and packaging testing.
+Instru-Met serves pharmaceutical, medical, and biomedical laboratories with
+accredited force, extensometer, and crosshead-speed calibration, plus on-site
+repair.

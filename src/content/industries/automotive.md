@@ -1,9 +1,10 @@
 ---
-title: Automotive
-label: Automotive
-icon: automotive
-order: 2
-draft: false
+name: Automotive
+summary: >-
+  Calibration, repair, and upgrades for automotive materials and component
+  testing systems.
+order: 30
 ---
 
-Tensile, compression, and calibration services for automotive quality and R&D labs.
+Instru-Met keeps automotive testing labs running with on-site calibration, repair,
+and equipment upgrades for tensile, compression, and fatigue testers.

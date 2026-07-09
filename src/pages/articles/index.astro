@@ -1,0 +1,61 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Media from "@/components/Media.astro";
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const fmt = (d) =>
+  d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
+---
+
+<BaseLayout
+  title="Articles"
+  description="News, guides, and product write-ups from Instru-Met Corporation."
+>
+  <section class="border-b border-border bg-muted">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <p class="text-sm font-semibold tracking-wide text-accent">Articles</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+        Insights &amp; Resources
+      </h1>
+      <p class="mt-4 max-w-2xl text-lg text-muted-foreground">
+        Guides, product write-ups, and news from our engineers.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {
+          posts.map((post) => (
+            <article class="flex flex-col border border-border bg-card">
+              <a href={`/articles/${post.id}`} class="block aspect-[16/10] overflow-hidden bg-muted">
+                <Media src={post.data.heroImage} alt={post.data.title} label="article photo" />
+              </a>
+              <div class="flex flex-1 flex-col p-6">
+                <p class="text-sm text-muted-foreground">{fmt(post.data.pubDate)}</p>
+                <h2 class="mt-1 text-lg font-semibold text-foreground">
+                  <a href={`/articles/${post.id}`} class="hover:text-accent">{post.data.title}</a>
+                </h2>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  {post.data.description}
+                </p>
+                {post.data.tags && (
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    {post.data.tags.slice(0, 3).map((t) => (
+                      <span class="rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-medium text-accent">{t}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

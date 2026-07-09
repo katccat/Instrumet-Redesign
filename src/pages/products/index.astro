@@ -1,29 +1,93 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Icon from "@/components/icons/Icon.astro";
+import Media from "@/components/Media.astro";
+import Button from "@/components/ui/Button.astro";
 
-const products = (await getCollection("products", ({ data }) => !data.draft)).sort(
-  (a, b) => a.data.order - b.data.order,
-);
+const products = await getCollection("products");
+
+// Ordered categories → matching the mega-menu anchors.
+const categories = [
+  { name: "Load Cells", id: "load-cells" },
+  { name: "Grips & Fixtures", id: "grips-fixtures" },
+  { name: "Load Frames", id: "load-frames" },
+];
+
+const byCategory = (cat) =>
+  products
+    .filter((p) => p.data.category === cat)
+    .sort((a, b) => a.data.order - b.data.order);
 ---
 
-<BaseLayout title="Products" description="Load frames, load cells, grips, extensometers, calibration, and repair services.">
-  <div class="container py-16 lg:py-20">
-    <p class="eyebrow mb-3">Equipment & Services</p>
-    <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">Product Lines</h1>
-    <ul class="mt-12 grid grid-cols-1 gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-      {products.map((product) => (
-        <li class="bg-background">
-          <a href={`/products/${product.id}`} class="group flex h-full flex-col p-7 transition-colors hover:bg-secondary">
-            <span class="mb-5 inline-flex h-12 w-12 items-center justify-center border border-border text-primary group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
-              <Icon name={product.data.icon ?? "check"} class="h-6 w-6" />
-            </span>
-            <h2 class="text-lg font-semibold tracking-tight">{product.data.title}</h2>
-            <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{product.data.summary}</p>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
+<BaseLayout
+  title="Products"
+  description="Load cells, grips & fixtures, and load frames — supplied, remanufactured, repaired, and calibrated by Instru-Met."
+>
+  {/* Page header */}
+  <section class="border-b border-border bg-muted">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <p class="text-sm font-semibold tracking-wide text-accent">Products</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+        Test equipment, built to keep testing
+      </h1>
+      <p class="mt-4 max-w-2xl text-lg text-muted-foreground">
+        From load cells to complete remanufactured frames — supplied, serviced,
+        and verified so your lab keeps running.
+      </p>
+      <nav class="mt-8 flex flex-wrap gap-3" aria-label="Product categories">
+        {
+          categories.map((c) => (
+            <a
+              href={`#${c.id}`}
+              class="rounded-full border border-input bg-background px-5 py-2 text-sm font-medium text-foreground hover:border-accent hover:text-accent"
+            >
+              {c.name}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </section>
+
+  {
+    categories.map((cat) => (
+      <section id={cat.id} class="scroll-mt-32 border-b border-border">
+        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <h2 class="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+            {cat.name}
+          </h2>
+          <div class="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {byCategory(cat.name).map((product) => (
+              <article class="flex flex-col border border-border bg-card">
+                <div class="aspect-[16/10] overflow-hidden bg-muted">
+                  <Media
+                    src={product.data.image}
+                    alt={product.data.name}
+                    label={`${product.data.name} photo`}
+                  />
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <h3 class="text-lg font-semibold text-foreground">
+                    {product.data.name}
+                  </h3>
+                  <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    {product.data.summary}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="bg-muted">
+    <div class="mx-auto flex max-w-7xl flex-col items-start gap-4 px-4 py-14 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <p class="text-lg font-medium text-foreground">
+        Not sure which configuration you need?
+      </p>
+      <Button href="/contact">Talk to an engineer</Button>
+    </div>
+  </section>
 </BaseLayout>

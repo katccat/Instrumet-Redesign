@@ -1,0 +1,44 @@
+---
+// Customers served — a grid of customer logos (ref: logo-array.png).
+// Only NASA ships as a real logo asset; the others render as clean wordmarks
+// (names supplied by the brief). No fabricated logo imagery is generated.
+import SectionHeading from "@/components/SectionHeading.astro";
+
+const customers = [
+  { name: "NASA", logo: "/logos/nasa.svg" },
+  { name: "Lockheed Martin" },
+  { name: "Gorilla Glue" },
+  { name: "Polo" },
+  { name: "Intuitive" },
+];
+---
+
+<section class="border-b border-border bg-muted">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+    <SectionHeading
+      eyebrow="Customers served"
+      title="Trusted across demanding industries"
+    />
+    <ul
+      class="mt-12 grid grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:grid-cols-3 lg:grid-cols-5"
+    >
+      {
+        customers.map((c) => (
+          <li class="flex h-28 items-center justify-center bg-background px-6">
+            {c.logo ? (
+              <img
+                src={c.logo}
+                alt={c.name}
+                class="max-h-12 w-auto opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0"
+              />
+            ) : (
+              <span class="text-center text-lg font-semibold tracking-tight text-muted-foreground transition-colors hover:text-foreground">
+                {c.name}
+              </span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

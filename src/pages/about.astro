@@ -1,25 +1,113 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Media from "@/components/Media.astro";
+import Button from "@/components/ui/Button.astro";
+import { site } from "@/config/site.js";
+
+const years = new Date().getFullYear() - site.foundedYear;
+
+const facts = [
+  { label: "Founded", value: site.foundedYear.toString() },
+  { label: "Years of service", value: `${years}+` },
+  { label: "Ownership", value: "American owned & operated" },
+  { label: "Headquarters", value: "Union, NJ" },
+];
+
+const brands = [
+  "Instron",
+  "Tinius Olsen",
+  "Baldwin",
+  "Thwing Albert",
+  "Monsanto",
+  "United",
+];
+const industries = [
+  "Pharmaceutical",
+  "Plastics",
+  "Wire & metal",
+  "Aviation",
+  "Government agencies",
+  "Consumer products",
+  "Universities",
+];
 ---
 
-<BaseLayout title="About Us" description="Instru-Met Corporation has served customers for over 50 years.">
-  <div class="container py-16 lg:py-20">
-    <p class="eyebrow mb-3">About</p>
-    <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">About Instru-Met</h1>
-    <div class="prose-body mt-8 max-w-prose space-y-4 text-base leading-relaxed text-foreground/90">
-      <p>
-        Instru-Met Corporation is a strength of materials test equipment company
-        and a classic tensile tester expert. We have served customers for over
-        50 years, working with manufacturers, testing labs, universities,
-        companies, and entrepreneurs across the United States, Mexico, Canada,
-        Hungary, and Europe.
-      </p>
-      <p>
-        We repair and calibrate every tensile tester on the market and have
-        dismantled and examined countless machines. That experience informs how
-        we rebuild, retrofit, and build our own tensile testing machines:
-        mechanically, electrically, and operationally.
+<BaseLayout
+  title="About"
+  description="Founded in 1974, Instru-Met Corporation remanufactures, repairs, and calibrates Instron and other testing equipment from its Union, NJ facility."
+>
+  <section class="border-b border-border bg-muted">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <p class="text-sm font-semibold tracking-wide text-accent">About us</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+        Keeping classic testing machines accurate since {site.foundedYear}
+      </h1>
+      <p class="mt-4 max-w-2xl text-lg text-muted-foreground">
+        {site.companyName} specializes in remanufactured and upgraded Instron load
+        frames — privately held and American owned &amp; operated from day one.
       </p>
     </div>
-  </div>
+  </section>
+
+  <section class="border-b border-border">
+    <div class="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
+      <div>
+        <div class="grid grid-cols-2 gap-px overflow-hidden border border-border bg-border">
+          {
+            facts.map((f) => (
+              <div class="bg-card p-6">
+                <dt class="text-sm text-muted-foreground">{f.label}</dt>
+                <dd class="mt-1 text-lg font-semibold text-foreground">{f.value}</dd>
+              </div>
+            ))
+          }
+        </div>
+        <div class="mt-6 aspect-[4/3] overflow-hidden border border-border">
+          <Media src="/images/load-cell-repair.jpg" alt="Load cell repair at Instru-Met, Union NJ" label="workshop photo" />
+        </div>
+      </div>
+
+      <div class="space-y-5 text-base leading-relaxed text-muted-foreground">
+        <p>
+          We provide accredited tension/compression calibration for load cells,
+          extensometers, temperature, crosshead speed, and displacement, plus
+          accredited dimensional calibration for calipers and micrometers.
+        </p>
+        <p>
+          We maintain a large inventory of hard-to-find parts for frames that are
+          no longer produced, and we service Instron frames from 1946 to the
+          present — including Models 1000, 1120, 1130, 4200, 4300, and 4500 Series.
+        </p>
+        <p>
+          Our staff includes engineers, technicians, and machinists, and our
+          quality system is compliant with ISO/IEC 17025 and ANSI/NCSL Z540-1.
+        </p>
+
+        <div>
+          <h2 class="text-sm font-semibold tracking-wide text-accent">Brands we service</h2>
+          <div class="mt-3 flex flex-wrap gap-2">
+            {brands.map((b) => (
+              <span class="rounded-full border border-input px-3 py-1 text-xs font-medium text-muted-foreground">{b}</span>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-sm font-semibold tracking-wide text-accent">Industries we serve</h2>
+          <div class="mt-3 flex flex-wrap gap-2">
+            {industries.map((i) => (
+              <span class="rounded-full border border-input px-3 py-1 text-xs font-medium text-muted-foreground">{i}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-muted">
+    <div class="mx-auto flex max-w-7xl flex-col items-start gap-4 px-4 py-14 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <p class="text-lg font-medium text-foreground">Work with a team that supports your equipment for life.</p>
+      <Button href="/contact">Get in touch</Button>
+    </div>
+  </section>
 </BaseLayout>

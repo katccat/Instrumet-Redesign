@@ -3,41 +3,36 @@ import "@/styles/globals.css";
 import { ClientRouter } from "astro:transitions";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-
-interface Props {
-  title?: string;
-  description?: string;
-}
+import { site } from "@/config/site.js";
 
 const {
-  title = "Instru-Met Corporation",
-  description = "Strength of Materials Test Equipment Company. Classic Tensile Tester Experts.",
+  title,
+  description = "Instru-Met Corporation — strength-of-materials test equipment, accredited calibration, and repair for tensile testing machines. 50 years of service.",
 } = Astro.props;
 
-const fullTitle =
-  title === "Instru-Met Corporation"
-    ? title
-    : `${title} | Instru-Met Corporation`;
+const fullTitle = title
+  ? `${title} — ${site.wordmark}`
+  : `${site.wordmark} — Strength of Materials Test Equipment`;
 ---
 
 <!doctype html>
-<html lang="en-US">
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
-    <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <!-- Astro View Transitions: enables SPA-style page-to-page transitions. -->
+    <title>{fullTitle}</title>
     <ClientRouter />
   </head>
-  <body class="flex min-h-screen flex-col">
+  <body class="min-h-screen bg-background text-foreground">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-btn focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-foreground"
+      >Skip to content</a
+    >
     <Header />
-    <main class="flex-1">
+    <main id="main">
       <slot />
     </main>
     <Footer />
