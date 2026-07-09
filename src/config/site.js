@@ -13,6 +13,10 @@ export const site = {
   tagline: "50 years of service",
   foundedYear: 1974,
 
+  // Separator used when composing <title> text (see BaseLayout.astro).
+  titleSeparator: "·",
+  titleSuffix: "Strength of Materials Test Equipment",
+
   contact: {
     phone: "(908) 851-0700",
     phoneHref: "tel:+19088510700",

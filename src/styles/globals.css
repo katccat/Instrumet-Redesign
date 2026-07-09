@@ -42,13 +42,13 @@
   --ring: #4169e1;
 
   /* Accent — royal blue */
-  --accent: #4169e1;
+  --accent: #4977ff;
   --accent-foreground: #ffffff;
   --accent-hover: #3355c9;
   --accent-soft: #eef2fd;
 
   /* Rounding — used sparingly (buttons, pills, small controls) */
-  --radius: 0.5rem;
+  --radius: 999px;
 
   --font-sans-stack: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;

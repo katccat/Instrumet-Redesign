@@ -10,9 +10,10 @@ const {
   description = "Instru-Met Corporation — strength-of-materials test equipment, accredited calibration, and repair for tensile testing machines. 50 years of service.",
 } = Astro.props;
 
+const sep = site.titleSeparator;
 const fullTitle = title
-  ? `${title} — ${site.wordmark}`
-  : `${site.wordmark} — Strength of Materials Test Equipment`;
+  ? `${title} ${sep} ${site.wordmark}`
+  : `${site.wordmark} ${sep} ${site.titleSuffix}`;
 ---
 
 <!doctype html>
