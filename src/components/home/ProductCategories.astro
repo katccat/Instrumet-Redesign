@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import SectionHeading from "./SectionHeading.astro";
+import Icon from "@/components/icons/Icon.astro";
+
+// Product-category grid, pulled from the `products` collection, ordered by the
+// `order` frontmatter field. Each card links to its product detail route.
+const products = (await getCollection("products", ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<section class="border-t border-border bg-background py-20 lg:py-24">
+  <div class="container">
+    <SectionHeading
+      eyebrow="Equipment & Services"
+      title="Product Lines"
+      intro="Frames, cells, grips, and accredited calibration, all rebuilt, retrofit, and serviced in-house."
+      linkHref="/products"
+      linkLabel="View all"
+    />
+
+    <ul class="mt-12 grid grid-cols-1 gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+      {
+        products.map((product) => (
+          <li class="bg-background">
+            {/* Simple border/shadow change on hover only, no card animation. */}
+            <a
+              href={`/products/${product.id}`}
+              class="group flex h-full flex-col p-7 transition-colors hover:bg-secondary"
+            >
+              <span class="mb-5 inline-flex h-12 w-12 items-center justify-center border border-border text-primary transition-colors group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
+                <Icon name={product.data.icon ?? "check"} class="h-6 w-6" />
+              </span>
+              <h3 class="text-lg font-semibold tracking-tight">{product.data.title}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                {product.data.summary}
+              </p>
+              {product.data.standards.length > 0 && (
+                <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1">
+                  {product.data.standards.map((s) => (
+                    <span class="chip tabular text-xs">{s}</span>
+                  ))}
+                </div>
+              )}
+              <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold uppercase tracking-wide text-primary">
+                Learn more
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

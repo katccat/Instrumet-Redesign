@@ -1,0 +1,73 @@
+---
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+// Hero. Headline and subhead come straight from the source site.
+// The one permitted motion flourish: a slow CSS Ken Burns on the image,
+// disabled under prefers-reduced-motion (see the scoped <style> below).
+---
+
+<section class="relative isolate overflow-hidden bg-primary">
+  <!-- Image layer. Intended real image noted in public/images/hero.svg. -->
+  <div class="absolute inset-0 -z-10">
+    <img
+      src="/images/hero.svg"
+      alt=""
+      class="hero-image h-full w-full object-cover"
+      fetchpriority="high"
+    />
+    <!-- Dark overlay for legible overlaid text. -->
+    <div class="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/40"></div>
+  </div>
+
+  <div class="container flex min-h-[560px] flex-col justify-center py-24 lg:min-h-[640px]">
+    <div class="max-w-2xl">
+      <!-- Accent left-border eyebrow, echoing the Instron hero band. -->
+      <p class="mb-5 border-l-2 border-white/70 pl-4 text-xs font-semibold uppercase tracking-[0.16em] text-white/80">
+        Classic Tensile Tester Experts
+      </p>
+      <h1 class="text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
+        Strength of Materials Test Equipment Company
+      </h1>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
+        Rebuilt and retrofit universal test frames, accredited calibration, and
+        on-site service for tensile testing systems. Serving customers for over
+        50 years.
+      </p>
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+        <a href="/products" class={cn(buttonVariants({ variant: "primary", size: "lg" }), "bg-white text-primary hover:bg-white/90")}>
+          Explore Equipment
+        </a>
+        <a href="/contact" class={buttonVariants({ variant: "onImage", size: "lg" })}>
+          Talk to an Engineer
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Ken Burns: slow zoom + drift. Kept in CSS (no JS, no Framer Motion). */
+  .hero-image {
+    transform-origin: center;
+    animation: hero-kenburns 26s ease-out both;
+    will-change: transform;
+  }
+
+  @keyframes hero-kenburns {
+    from {
+      transform: scale(1) translate3d(0, 0, 0);
+    }
+    to {
+      transform: scale(1.09) translate3d(-1.5%, -1.5%, 0);
+    }
+  }
+
+  /* Disable the effect entirely for users who prefer reduced motion. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-image {
+      animation: none;
+      transform: none;
+    }
+  }
+</style>

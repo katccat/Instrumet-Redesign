@@ -1,0 +1,45 @@
+---
+import "@/styles/globals.css";
+import { ClientRouter } from "astro:transitions";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Instru-Met Corporation",
+  description = "Strength of Materials Test Equipment Company. Classic Tensile Tester Experts.",
+} = Astro.props;
+
+const fullTitle =
+  title === "Instru-Met Corporation"
+    ? title
+    : `${title} | Instru-Met Corporation`;
+---
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Astro View Transitions: enables SPA-style page-to-page transitions. -->
+    <ClientRouter />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

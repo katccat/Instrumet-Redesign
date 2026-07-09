@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Icon from "@/components/icons/Icon.astro";
+
+const products = (await getCollection("products", ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<BaseLayout title="Products" description="Load frames, load cells, grips, extensometers, calibration, and repair services.">
+  <div class="container py-16 lg:py-20">
+    <p class="eyebrow mb-3">Equipment & Services</p>
+    <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">Product Lines</h1>
+    <ul class="mt-12 grid grid-cols-1 gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+      {products.map((product) => (
+        <li class="bg-background">
+          <a href={`/products/${product.id}`} class="group flex h-full flex-col p-7 transition-colors hover:bg-secondary">
+            <span class="mb-5 inline-flex h-12 w-12 items-center justify-center border border-border text-primary group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
+              <Icon name={product.data.icon ?? "check"} class="h-6 w-6" />
+            </span>
+            <h2 class="text-lg font-semibold tracking-tight">{product.data.title}</h2>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{product.data.summary}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>

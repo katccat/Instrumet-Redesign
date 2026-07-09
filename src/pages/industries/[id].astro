@@ -1,0 +1,32 @@
+---
+import { getCollection, render } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Icon from "@/components/icons/Icon.astro";
+
+export const getStaticPaths = (async () => {
+  const industries = await getCollection("industries", ({ data }) => !data.draft);
+  return industries.map((industry) => ({
+    params: { id: industry.id },
+    props: { industry },
+  }));
+}) satisfies GetStaticPaths;
+
+const { industry } = Astro.props;
+const { Content } = await render(industry);
+---
+
+<BaseLayout title={industry.data.title} description={industry.data.label}>
+  <article class="container py-16 lg:py-20">
+    <a href="/industries" class="text-sm font-semibold uppercase tracking-wide text-primary">&larr; All industries</a>
+    <div class="mt-4 flex items-center gap-4">
+      <span class="inline-flex h-12 w-12 items-center justify-center border border-border text-primary">
+        <Icon name={industry.data.icon} class="h-6 w-6" />
+      </span>
+      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">{industry.data.title}</h1>
+    </div>
+    <div class="prose-body mt-8 max-w-prose space-y-4 text-base leading-relaxed text-foreground/90">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

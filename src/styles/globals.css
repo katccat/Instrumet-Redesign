@@ -1,0 +1,129 @@
+/* Self-hosted variable font (no external network request at runtime). */
+@import "@fontsource-variable/inter";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  TOKEN LAYER
+  Single source of truth for color, radius, and shadow. tailwind.config.mjs
+  maps these to utility classes. Light mode only: there is no .dark block and
+  no theme-switching logic anywhere in the project.
+
+  Colors are stored as raw HSL channels (not hsl(...) strings) so Tailwind can
+  wrap them with alpha, e.g. `bg-primary/80`.
+*/
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 28% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 28% 14%;
+
+    /* Accent: a single dark navy. Used sparingly (CTAs, chips, active nav). */
+    --primary: 213 74% 19%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Neutral surface for alternating sections. */
+    --secondary: 210 24% 96%;
+    --secondary-foreground: 215 28% 14%;
+
+    --muted: 210 24% 96%;
+    --muted-foreground: 215 16% 42%;
+
+    --accent: 213 74% 19%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 214 20% 88%;
+    --input: 214 20% 84%;
+    --ring: 213 74% 19%;
+
+    /* Square corners across the whole system. */
+    --radius: 0px;
+
+    /* Subtle, industrial shadows. Motion on hover is limited to these. */
+    --shadow-card: 0 1px 2px hsl(215 28% 14% / 0.04),
+      0 1px 1px hsl(215 28% 14% / 0.06);
+    --shadow-card-hover: 0 6px 20px hsl(215 28% 14% / 0.1);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Numeric alignment for anything tabular (specs, phone, dates, stats). */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Consistent focus ring for keyboard users across native + custom controls. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Honor reduced-motion: kill the hero Ken Burns and smooth scrolling. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Uppercase eyebrow label seen throughout the inspirations. */
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.14em] text-primary;
+  }
+
+  /* Slash-prefixed tag chip (inspiration screenshot 1), recolored to navy. */
+  .chip {
+    @apply inline-flex items-center gap-1.5 text-sm font-medium text-foreground;
+  }
+  .chip::before {
+    content: "/";
+    @apply font-bold text-primary;
+  }
+
+  /*
+    Minimal readable styling for rendered Markdown bodies on detail pages.
+    Kept local (no @tailwindcss/typography dependency) since preflight strips
+    list markers and heading sizes.
+  */
+  .prose-body :where(h2) {
+    @apply mt-8 text-2xl font-semibold tracking-tight;
+  }
+  .prose-body :where(h3) {
+    @apply mt-6 text-xl font-semibold tracking-tight;
+  }
+  .prose-body :where(ul) {
+    @apply my-4 list-disc space-y-2 pl-6 marker:text-primary;
+  }
+  .prose-body :where(ol) {
+    @apply my-4 list-decimal space-y-2 pl-6 marker:text-primary;
+  }
+  .prose-body :where(a) {
+    @apply font-medium text-primary underline underline-offset-4;
+  }
+  .prose-body :where(strong) {
+    @apply font-semibold text-foreground;
+  }
+}

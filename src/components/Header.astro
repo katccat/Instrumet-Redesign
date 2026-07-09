@@ -1,0 +1,14 @@
+---
+import SiteNav from "@/components/nav/SiteNav.tsx";
+
+// Sticky header wrapper. The interactive nav is a React island; the sticky
+// shell stays in Astro. transition:persist keeps the header mounted across
+// View Transitions so it does not flash or reset on navigation.
+---
+
+<header
+  transition:persist="site-header"
+  class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
+>
+  <SiteNav client:load brand="Instru-Met" />
+</header>

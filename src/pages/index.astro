@@ -1,0 +1,19 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/home/Hero.astro";
+import ProductCategories from "@/components/home/ProductCategories.astro";
+import Industries from "@/components/home/Industries.astro";
+import RecentPosts from "@/components/home/RecentPosts.astro";
+import Certifications from "@/components/home/Certifications.astro";
+
+// Home page: composed purely from section components, in the order defined by
+// the brief (hero, products, industries, news, certifications).
+---
+
+<BaseLayout>
+  <Hero />
+  <ProductCategories />
+  <Industries />
+  <RecentPosts />
+  <Certifications />
+</BaseLayout>

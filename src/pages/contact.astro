@@ -1,0 +1,32 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Icon from "@/components/icons/Icon.astro";
+
+// Contact details are taken verbatim from the source site footer.
+---
+
+<BaseLayout title="Contact Us" description="Contact Instru-Met Corporation in Union, NJ.">
+  <div class="container py-16 lg:py-20">
+    <p class="eyebrow mb-3">Get in Touch</p>
+    <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">Talk to an Engineer</h1>
+    <p class="mt-4 max-w-2xl text-lg text-muted-foreground">
+      Reach us with your calibration, service, or equipment questions. Our
+      engineers can help diagnose issues over the phone before scheduling
+      on-site work.
+    </p>
+    <div class="mt-10 grid max-w-xl gap-4">
+      <a href="tel:9088510700" class="flex items-center gap-3 border border-border p-5 transition-shadow hover:shadow-card-hover">
+        <Icon name="phone" class="h-5 w-5 shrink-0 text-primary" />
+        <span class="tabular text-lg font-semibold">(908) 851-0700</span>
+      </a>
+      <a href="mailto:sales@instru-met.com" class="flex items-center gap-3 border border-border p-5 transition-shadow hover:shadow-card-hover">
+        <Icon name="mail" class="h-5 w-5 shrink-0 text-primary" />
+        <span class="text-lg font-semibold">sales@instru-met.com</span>
+      </a>
+      <div class="flex items-center gap-3 border border-border p-5">
+        <Icon name="pin" class="h-5 w-5 shrink-0 text-primary" />
+        <span class="text-lg font-semibold">931 Lehigh Ave, Union NJ</span>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
