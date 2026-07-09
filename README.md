@@ -1,7 +1,6 @@
 # Instru-Met Corporation
 
-Marketing site for Instru-Met Corporation, a strength of materials test
-equipment company. Static, multi-page, built with Astro, Tailwind CSS, and a
+Company site for Instru-Met, a strength of materials test equipment company. Static, multi-page, built with Astro, Tailwind CSS, and a
 small set of shadcn/ui React islands.
 
 ## Stack
@@ -13,9 +12,6 @@ small set of shadcn/ui React islands.
 - **Content Collections** for `posts`, `products`, and `industries`
   (Markdown/MDX + Zod schemas)
 - **Netlify** deploy target (`netlify.toml`)
-
-Light mode only. There is no dark mode, theme toggle, or theme-switching logic.
-All corners are square (the radius token is `0`).
 
 ## Run locally
 
@@ -157,13 +153,3 @@ contract.
 `netlify.toml` sets `command = "npm run build"` and `publish = "dist"`. Connect
 the repo in Netlify and it builds on push. No adapter is required for a fully
 static site.
-
-## Conventions
-
-- No em dashes anywhere (copy, comments, or code). Use parentheses, colons,
-  semicolons, or separate sentences.
-- Sans-serif only (Inter), self-hosted via `@fontsource-variable/inter`. No
-  serif or monospace. Numeric-heavy text uses `.tabular`
-  (`font-variant-numeric: tabular-nums`).
-- Motion is subdued: the only flourish is the hero Ken Burns effect, which
-  respects `prefers-reduced-motion`.
