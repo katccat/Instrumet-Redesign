@@ -1,5 +1,4 @@
 import * as React from "react";
-import { cn } from "@/lib/utils";
 
 // ---------------------------------------------------------------------------
 // Primary navigation island.
@@ -28,9 +27,11 @@ const ArrowIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const ChevronIcon = ({ open }: { open: boolean }) => (
+// Rotation is driven by CSS: the parent trigger's `aria-expanded="true"`
+// flips this chevron (see `.nav-chevron` in nav.css).
+const ChevronIcon = () => (
   <svg
-    className={cn("transition-transform", open && "rotate-180")}
+    className="nav-chevron"
     width="16"
     height="16"
     viewBox="0 0 24 24"
@@ -50,32 +51,27 @@ const FOCUSABLE =
 
 function FeaturedCard({ card }) {
   return (
-    <a
-      href={card.href}
-      className="group flex flex-col border border-border bg-card transition-colors hover:border-accent"
-    >
-      <div className="aspect-[16/10] w-full overflow-hidden bg-muted">
+    <a href={card.href} className="feature-card">
+      <div className="feature-card__media">
         {card.image ? (
           <img
             src={card.image}
             alt={card.imageAlt || ""}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="feature-card__img"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center border-b border-dashed border-border text-xs font-medium text-muted-foreground">
+          <div className="feature-card__placeholder">
             Image: {card.imageAlt || "featured"}
           </div>
         )}
       </div>
-      <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-base font-semibold text-foreground">{card.title}</h3>
-        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-          {card.description}
-        </p>
-        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
+      <div className="feature-card__body">
+        <h3 className="feature-card__title">{card.title}</h3>
+        <p className="feature-card__desc">{card.description}</p>
+        <span className="feature-card__cta">
           {card.cta}
-          <ArrowIcon className="transition-transform group-hover:translate-x-0.5" />
+          <ArrowIcon className="feature-card__cta-arrow" />
         </span>
       </div>
     </a>
@@ -156,12 +152,12 @@ export default function SiteNav({ nav }) {
   };
 
   return (
-    <div ref={rootRef} className="relative">
+    <div ref={rootRef} className="site-nav">
       {/* Lower tier bar */}
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="site-container nav-bar">
         {/* Desktop nav — mega-menu is desktop only */}
-        <nav aria-label="Primary" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
+        <nav aria-label="Primary" className="nav-desktop">
+          <ul className="nav-desktop__list">
             {nav.map((item, index) =>
               item.panel ? (
                 <li key={item.label}>
@@ -171,30 +167,17 @@ export default function SiteNav({ nav }) {
                     aria-expanded={openIndex === index}
                     aria-controls={`meganav-panel-${index}`}
                     onClick={() => toggle(index)}
-                    className={cn(
-                      "relative flex items-center gap-1.5 px-4 py-4 text-sm font-medium transition-colors",
-                      openIndex === index
-                        ? "text-accent"
-                        : "text-foreground hover:text-accent"
-                    )}
+                    className="nav-link"
                   >
                     {item.label}
-                    <ChevronIcon open={openIndex === index} />
+                    <ChevronIcon />
                     {/* Active indicator */}
-                    <span
-                      className={cn(
-                        "absolute inset-x-3 bottom-0 h-0.5 bg-accent transition-opacity",
-                        openIndex === index ? "opacity-100" : "opacity-0"
-                      )}
-                    />
+                    <span className="nav-link__indicator" />
                   </button>
                 </li>
               ) : (
                 <li key={item.label}>
-                  <a
-                    href={item.href}
-                    className="px-4 py-4 text-sm font-medium text-foreground transition-colors hover:text-accent"
-                  >
+                  <a href={item.href} className="nav-link">
                     {item.label}
                   </a>
                 </li>
@@ -206,7 +189,7 @@ export default function SiteNav({ nav }) {
         {/* Mobile hamburger */}
         <button
           type="button"
-          className="ml-auto inline-flex items-center justify-center p-2 text-foreground lg:hidden"
+          className="nav-mobile-toggle"
           aria-expanded={mobileOpen}
           aria-controls="mobile-menu"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
@@ -230,38 +213,30 @@ export default function SiteNav({ nav }) {
           role="region"
           aria-label={`${nav[openIndex].label} menu`}
           onKeyDown={onPanelKeyDown}
-          className="absolute inset-x-0 top-full z-40 hidden border-t border-border bg-background shadow-lg lg:block"
+          className="meganav"
         >
-          <div className="mx-auto grid max-w-7xl grid-cols-12 gap-10 px-4 py-10 sm:px-6 lg:px-8">
+          <div className="site-container meganav__inner">
             {/* Left: category links */}
-            <div className="col-span-4">
-              <p className="mb-4 text-sm font-semibold tracking-wide text-accent">
-                {nav[openIndex].label}
-              </p>
-              <ul className="space-y-1">
+            <div className="meganav__col-links">
+              <p className="meganav__label">{nav[openIndex].label}</p>
+              <ul className="meganav__links">
                 {nav[openIndex].panel.links.map((link) => (
                   <li key={link.href}>
-                    <a
-                      href={link.href}
-                      className="group flex items-center justify-between rounded-btn px-3 py-2.5 text-base font-medium text-foreground transition-colors hover:bg-muted hover:text-accent"
-                    >
+                    <a href={link.href} className="meganav__link">
                       {link.label}
-                      <ArrowIcon className="opacity-0 transition-opacity group-hover:opacity-100" />
+                      <ArrowIcon className="meganav__arrow" />
                     </a>
                   </li>
                 ))}
               </ul>
-              <a
-                href={nav[openIndex].href}
-                className="mt-4 inline-flex items-center gap-1.5 px-3 text-sm font-semibold text-accent hover:underline"
-              >
+              <a href={nav[openIndex].href} className="meganav__viewall">
                 View all {nav[openIndex].label.toLowerCase()}
                 <ArrowIcon />
               </a>
             </div>
 
             {/* Right: two featured cards side by side */}
-            <div className="col-span-8 grid grid-cols-2 gap-6">
+            <div className="meganav__col-featured">
               {nav[openIndex].panel.featured.map((card) => (
                 <FeaturedCard key={card.title} card={card} />
               ))}
@@ -272,43 +247,34 @@ export default function SiteNav({ nav }) {
 
       {/* Mobile menu — stacked list / accordion, no mega-menu layout */}
       {mobileOpen && (
-        <div
-          id="mobile-menu"
-          className="border-t border-border bg-background lg:hidden"
-        >
-          <nav aria-label="Mobile" className="px-4 py-4 sm:px-6">
-            <ul className="divide-y divide-border">
+        <div id="mobile-menu" className="nav-mobile">
+          <nav aria-label="Mobile" className="nav-mobile__nav">
+            <ul className="nav-mobile__list">
               {nav.map((item, index) =>
                 item.panel ? (
-                  <li key={item.label} className="py-1">
+                  <li key={item.label} className="nav-mobile__item">
                     <button
                       type="button"
-                      className="flex w-full items-center justify-between py-3 text-base font-medium text-foreground"
+                      className="nav-mobile__trigger"
                       aria-expanded={mobileExpanded === index}
                       onClick={() =>
                         setMobileExpanded((v) => (v === index ? null : index))
                       }
                     >
                       {item.label}
-                      <ChevronIcon open={mobileExpanded === index} />
+                      <ChevronIcon />
                     </button>
                     {mobileExpanded === index && (
-                      <ul className="pb-3 pl-3">
+                      <ul className="nav-mobile__sublist">
                         {item.panel.links.map((link) => (
                           <li key={link.href}>
-                            <a
-                              href={link.href}
-                              className="block py-2 text-sm text-muted-foreground hover:text-accent"
-                            >
+                            <a href={link.href} className="nav-mobile__sublink">
                               {link.label}
                             </a>
                           </li>
                         ))}
                         <li>
-                          <a
-                            href={item.href}
-                            className="block py-2 text-sm font-semibold text-accent"
-                          >
+                          <a href={item.href} className="nav-mobile__viewall">
                             View all {item.label.toLowerCase()}
                           </a>
                         </li>
@@ -317,10 +283,7 @@ export default function SiteNav({ nav }) {
                   </li>
                 ) : (
                   <li key={item.label}>
-                    <a
-                      href={item.href}
-                      className="block py-3 text-base font-medium text-foreground hover:text-accent"
-                    >
+                    <a href={item.href} className="nav-mobile__link">
                       {item.label}
                     </a>
                   </li>

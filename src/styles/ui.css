@@ -1,0 +1,281 @@
+/* ============================================================
+   Reusable UI pieces — buttons, headings, tags/pills, cards,
+   image frames, and the Media/SectionHeading component classes.
+   Anything that appears on more than one page lives here.
+   ============================================================ */
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.btn:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--ring);
+}
+.btn:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Button variants */
+.btn--primary {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+.btn--primary:hover {
+  background: var(--accent-hover);
+}
+.btn--outline {
+  border: 1px solid var(--input);
+  background: var(--background);
+  color: var(--foreground);
+}
+.btn--outline:hover {
+  background: var(--muted);
+}
+.btn--ghost {
+  color: var(--foreground);
+}
+.btn--ghost:hover {
+  background: var(--muted);
+}
+.btn--link {
+  color: var(--accent);
+  text-underline-offset: 4px;
+}
+.btn--link:hover {
+  text-decoration: underline;
+}
+
+/* Button sizes */
+.btn--md {
+  height: 2.5rem;
+  padding: 0.5rem 1.25rem;
+}
+.btn--sm {
+  height: 2.25rem;
+  padding-inline: 1rem;
+}
+.btn--lg {
+  height: 3rem;
+  padding-inline: 1.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+/* ---- Headings & lead text ---- */
+.eyebrow {
+  color: var(--accent);
+  font-family: var(--font-syne);
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+.section-title {
+  margin-top: 0.5rem;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  color: var(--foreground);
+}
+@media (min-width: 640px) {
+  .section-title {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+/* Slightly smaller variant (e.g. product category headings). */
+.section-title--sm {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+@media (min-width: 640px) {
+  .section-title--sm {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+}
+.lead {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--muted-foreground);
+}
+
+/* ---- SectionHeading component ---- */
+.section-heading {
+  max-width: 48rem;
+}
+.section-heading--center {
+  margin-inline: auto;
+  text-align: center;
+}
+.section-heading__intro {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--muted-foreground);
+}
+
+/* ---- Tags & pills ---- */
+/* Small static label (brands, industries). */
+.chip {
+  display: inline-block;
+  border-radius: 9999px;
+  border: 1px solid var(--input);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+/* Filled accent tag (article topics). */
+.tag {
+  display: inline-block;
+  border-radius: 9999px;
+  background: var(--accent-soft);
+  padding: 0.125rem 0.625rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Interactive pill (jump-nav links + tab buttons). Active state is
+   driven by `aria-selected` so tab components don't juggle classes. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid var(--input);
+  background: var(--background);
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--foreground);
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.pill[aria-selected="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ---- Cards (article & product listings) ---- */
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+.card__media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--muted);
+}
+.card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+.card__meta {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--muted-foreground);
+}
+.card__title {
+  margin-top: 0.25rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--foreground);
+}
+.card__title a:hover {
+  color: var(--accent);
+}
+.card__text {
+  margin-top: 0.5rem;
+  flex: 1;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--muted-foreground);
+}
+.card__tags {
+  margin-top: 1rem;
+}
+
+/* Responsive card grid (article & product listings). */
+.card-grid {
+  display: grid;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.card-grid--spaced {
+  margin-top: 2rem;
+}
+
+/* ---- Image frames ---- */
+.frame {
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.frame--4-3 {
+  aspect-ratio: 4 / 3;
+}
+.frame--16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+/* ---- Media component ---- */
+.media-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.media-placeholder {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  border: 1px dashed var(--border);
+  background: var(--muted);
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}

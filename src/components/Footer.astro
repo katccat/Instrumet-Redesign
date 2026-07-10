@@ -1,37 +1,33 @@
 ---
-import { site, nav } from "@/config/site.js";
+import { site, nav } from "@/config.js";
 const { address } = site.contact;
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-border bg-muted">
-  <div
-    class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-4 lg:px-8"
-  >
+<footer class="site-footer">
+  <div class="site-container site-footer__grid">
     {/* Brand + address */}
-    <div class="lg:col-span-2">
-      <div class="flex items-center gap-3">
-        <img src="/logo.svg" alt="" width="32" height="32" class="h-8 w-8" />
-        <span class="text-lg font-bold tracking-tight text-foreground"
-          >{site.wordmark}</span
-        >
+    <div class="site-footer__brand">
+      <div class="footer-brand">
+        <img src="/logo.svg" alt="" width="32" height="32" class="footer-brand__logo" />
+        <span class="brand__name">{site.wordmark}</span>
       </div>
-      <address class="mt-4 not-italic text-sm leading-relaxed text-muted-foreground">
+      <address class="footer-address">
         {site.companyName}<br />
         {address.street}<br />
         {address.city}, {address.state} {address.zip}
       </address>
-      <dl class="mt-4 space-y-1 text-sm text-muted-foreground">
-        <div class="flex gap-2">
-          <dt class="font-medium text-foreground">Phone</dt>
-          <dd><a href={site.contact.phoneHref} class="hover:text-accent">{site.contact.phone}</a></dd>
+      <dl class="footer-contact">
+        <div class="footer-contact__row">
+          <dt class="footer-contact__label">Phone</dt>
+          <dd><a href={site.contact.phoneHref} class="footer-link">{site.contact.phone}</a></dd>
         </div>
-        <div class="flex gap-2">
-          <dt class="font-medium text-foreground">Email</dt>
-          <dd><a href={`mailto:${site.contact.email}`} class="hover:text-accent">{site.contact.email}</a></dd>
+        <div class="footer-contact__row">
+          <dt class="footer-contact__label">Email</dt>
+          <dd><a href={`mailto:${site.contact.email}`} class="footer-link">{site.contact.email}</a></dd>
         </div>
-        <div class="flex gap-2">
-          <dt class="font-medium text-foreground">Fax</dt>
+        <div class="footer-contact__row">
+          <dt class="footer-contact__label">Fax</dt>
           <dd>{site.contact.fax}</dd>
         </div>
       </dl>
@@ -39,34 +35,32 @@ const year = new Date().getFullYear();
 
     {/* Useful links */}
     <nav aria-label="Footer">
-      <h2 class="text-sm font-semibold text-foreground">Explore</h2>
-      <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
+      <h2 class="footer-heading">Explore</h2>
+      <ul class="footer-links">
         {nav.map((item) => (
           <li>
-            <a href={item.href} class="hover:text-accent">{item.label}</a>
+            <a href={item.href} class="footer-link">{item.label}</a>
           </li>
         ))}
-        <li><a href="/contact" class="hover:text-accent">Contact</a></li>
+        <li><a href="/contact" class="footer-link">Contact</a></li>
       </ul>
     </nav>
 
     {/* Follow us */}
     <div>
-      <h2 class="text-sm font-semibold text-foreground">Follow us</h2>
-      <ul class="mt-4 space-y-2 text-sm text-muted-foreground">
+      <h2 class="footer-heading">Follow us</h2>
+      <ul class="footer-links">
         {site.social.map((s) => (
           <li>
-            <a href={s.href} target="_blank" rel="noopener noreferrer" class="hover:text-accent">{s.label}</a>
+            <a href={s.href} target="_blank" rel="noopener noreferrer" class="footer-link">{s.label}</a>
           </li>
         ))}
       </ul>
     </div>
   </div>
 
-  <div class="border-t border-border">
-    <div
-      class="mx-auto max-w-7xl px-4 py-6 text-xs text-muted-foreground sm:px-6 lg:px-8"
-    >
+  <div class="site-footer__bottom">
+    <div class="site-container site-footer__copy">
       © {year} {site.companyName}. All rights reserved.
     </div>
   </div>

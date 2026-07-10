@@ -1,37 +1,75 @@
-@import "tailwindcss";
+/* ============================================================
+   Global stylesheet — the single entry point.
 
-/*
-  Design tokens — every color is a CSS variable.
-  Light mode ships now. Dark mode is intentionally a *variable swap only*:
-  add values under `:root[data-theme="dark"]` below and nothing in the
-  component layer needs to change (no hard-coded color literals anywhere).
-*/
+   Load order matters: tokens + reset + base elements first, then
+   the shared component/layout classes, then the per-area sheets.
+   Every color, font, and radius is a CSS variable defined in
+   :root below — restyle the whole site from there.
+   ============================================================ */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-soft: var(--accent-soft);
+/* Shared building blocks */
+@import "./layout.css";
+@import "./ui.css";
+@import "./content.css";
+/* Per-area sheets */
+@import "./nav.css";
+@import "./footer.css";
+@import "./home.css";
+@import "./contact.css";
+@import "./article.css";
 
-  --font-sans: var(--font-sans-stack);
-
-  --radius-btn: var(--radius);
+/* ---- Fonts ---- */
+@font-face {
+  font-family: "Syne";
+  src: url("/fonts/syne/Syne-VariableFont_wght.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Breite Grotesk";
+  src: url("/fonts/breite-grotesk/BreiteGrotesk-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Breite Grotesk";
+  src: url("/fonts/breite-grotesk/BreiteGrotesk-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Breite Grotesk";
+  src: url("/fonts/breite-grotesk/BreiteGrotesk-LightCondensed.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: condensed;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Breite Grotesk";
+  src: url("/fonts/breite-grotesk/BreiteGrotesk-Condensed.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: condensed;
+  font-display: swap;
 }
 
+/* ============================================================
+   Design tokens
+   Light mode ships now. Dark mode is a *variable swap only*:
+   add values under :root[data-theme="dark"] and flip the
+   attribute on <html> — no component CSS needs to change.
+   ============================================================ */
 :root {
   /* Surfaces */
-  --background: #ecebeb;
-  --foreground: #15181e;
-  --muted: #f4f6f9;
+  --background: #fbfbfb;
+  --foreground: #000000;
+  --muted: #f5f5f5;
   --muted-foreground: #59626f;
   --card: #ffffff;
   --card-foreground: #15181e;
@@ -42,39 +80,127 @@
   --ring: #4169e1;
 
   /* Accent — royal blue */
-  --accent: #2c489a;
+  --accent: #3050b2;
   --accent-foreground: #ffffff;
   --accent-hover: #3355c9;
   --accent-soft: #eef2fd;
 
   /* Rounding — used sparingly (buttons, pills, small controls) */
-  --radius: 999px;
   --radius: 0;
-  --font-sans-stack: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
+
+  /* Type families */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-syne: "Syne", var(--font-sans);
+  --font-breite: "Breite Grotesk", var(--font-sans);
 }
 
-/*
-  Dark mode readiness (not enabled at launch). When the brand is ready,
-  drop values here and flip data-theme on <html>. No component edits needed.
+/* ============================================================
+   Reset — replaces Tailwind's preflight with the few
+   normalizations this site actually depends on.
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+img {
+  user-select: none;
+}
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+address {
+  font-style: normal;
+}
 
-  :root[data-theme="dark"] {
-    --background: #0d0f13;
-    --foreground: #f2f4f8;
-    ...
-  }
-*/
-
+/* ============================================================
+   Base element styling
+   ============================================================ */
 html {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
-body {
-  margin: 0;
+/* Display headings use the condensed grotesk; weight/tracking are fixed
+   so individual headings only need to set size + color. */
+h1,
+h2,
+h3 {
+  font-family: var(--font-breite);
+  font-weight: 400;
+  letter-spacing: 0.006em;
+}
+
+/* Accessible skip link (visually hidden until focused). */
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link:focus {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 60;
+  width: auto;
+  height: auto;
+  clip: auto;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  border-radius: var(--radius);
 }
 
 /* Respect reduced-motion for View Transitions */
@@ -85,3 +211,13 @@ body {
     animation: none !important;
   }
 }
+
+/*
+  Dark mode readiness (not enabled at launch):
+
+  :root[data-theme="dark"] {
+    --background: #0d0f13;
+    --foreground: #f2f4f8;
+    ...
+  }
+*/

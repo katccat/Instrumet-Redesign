@@ -1,35 +1,29 @@
 ---
 import Button from "@/components/ui/Button.astro";
 import Media from "@/components/Media.astro";
-import { site } from "@/config/site.js";
+import { site } from "@/config.js";
 ---
 
-<section class="border-b border-border">
-  <div
-    class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24"
-  >
+<section class="section">
+  <div class="site-container hero__inner">
     <div>
-      <p class="text-sm font-semibold tracking-wide text-accent">
-        Strength of Materials Test Equipment
-      </p>
-      <h1
-        class="mt-4 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
-      >
+      <p class="eyebrow">Strength of Materials Test Equipment</p>
+      <h1 class="hero__title">
         Classic tensile testers, kept accurate for life.
       </h1>
-      <p class="mt-6 max-w-xl text-lg text-muted-foreground">
+      <p class="hero__lead">
         For over 50 years Instru-Met has
         remanufactured, repaired, and calibrated tensile and compression testing
         machines on-site and at our Union, NJ lab. Accredited. NIST-traceable.
         No end-of-life.
       </p>
-      <div class="mt-8 flex flex-wrap gap-4">
+      <div class="hero__actions">
         <Button href="/services" size="lg">Explore services</Button>
         <Button href="/contact" size="lg" variant="outline">Contact us</Button>
       </div>
     </div>
 
-    <div class="aspect-[4/3] overflow-hidden border border-border">
+    <div class="frame frame--4-3">
       <Media
         src="/images/single-column.jpg"
         alt="Instru-Met tensile testing machine with software"

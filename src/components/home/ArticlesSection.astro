@@ -9,53 +9,39 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft))
   .slice(0, 3);
 
 const featured = posts[0];
-const fmt = (d) =>
+const fmt = (d: Date) =>
   d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
 ---
 
-<section class="border-b border-border">
-  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+<section class="section">
+  <div class="site-container section-inner">
+    <div class="articles-preview">
       {/* Left: heading + list */}
       <div>
-        <div class="flex items-end justify-between gap-4">
-          <h2 class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Insights &amp; Resources
-          </h2>
-          <a
-            href="/articles"
-            class="hidden shrink-0 text-sm font-semibold text-accent hover:underline sm:inline"
-            >All articles</a
-          >
+        <div class="articles-preview__head">
+          <h2 class="section-title">Latest News &amp; Resources</h2>
+          <a href="/articles" class="articles-preview__all">All articles</a>
         </div>
 
-        <ul class="mt-8 divide-y divide-border border-t border-border">
+        <ul class="article-list">
           {
             posts.map((post) => (
               <li>
-                <a href={`/articles/${post.id}`} class="group block py-6">
-                  <p class="text-sm text-muted-foreground">
-                    {fmt(post.data.pubDate)}
-                  </p>
-                  <h3 class="mt-1 text-lg font-medium text-foreground transition-colors group-hover:text-accent">
-                    {post.data.title}
-                  </h3>
+                <a href={`/articles/${post.id}`} class="article-list__link">
+                  <p class="article-list__date">{fmt(post.data.pubDate)}</p>
+                  <h3 class="article-list__title">{post.data.title}</h3>
                 </a>
               </li>
             ))
           }
         </ul>
-        <a
-          href="/articles"
-          class="mt-6 inline-block text-sm font-semibold text-accent hover:underline sm:hidden"
-          >All articles</a
-        >
+        <a href="/articles" class="articles-preview__all--mobile">All articles</a>
       </div>
 
       {/* Right: featured image */}
-      <div class="order-first lg:order-last">
-        <a href={featured ? `/articles/${featured.id}` : "/articles"} class="block h-full">
-          <div class="aspect-[4/3] h-full overflow-hidden border border-border">
+      <div class="order-flip">
+        <a href={featured ? `/articles/${featured.id}` : "/articles"} class="block-fill">
+          <div class="frame frame--4-3 fill-height">
             <Media
               src={featured?.data.heroImage}
               alt={featured?.data.title || ""}

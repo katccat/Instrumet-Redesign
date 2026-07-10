@@ -1,31 +1,17 @@
 ---
-// Eyebrow/kicker + title + optional intro. Eyebrow is styled but NOT fully
-// uppercase (small caps-ish treatment via tracking + accent color).
-import { cn } from "@/lib/utils";
+// Eyebrow/kicker + title + optional intro.
 const { eyebrow, title, intro, align = "left", class: className } = Astro.props;
 ---
 
 <div
-  class={cn(
-    "max-w-3xl",
-    align === "center" && "mx-auto text-center",
-    className
-  )}
+  class:list={[
+    "section-heading",
+    align === "center" && "section-heading--center",
+    className,
+  ]}
 >
-  {
-    eyebrow && (
-      <p class="mb-3 text-sm font-semibold tracking-wide text-accent">
-        {eyebrow}
-      </p>
-    )
-  }
-  {
-    title && (
-      <h2 class="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-        {title}
-      </h2>
-    )
-  }
-  {intro && <p class="mt-4 text-lg text-muted-foreground">{intro}</p>}
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  {title && <h2 class="section-title">{title}</h2>}
+  {intro && <p class="section-heading__intro">{intro}</p>}
   <slot />
 </div>

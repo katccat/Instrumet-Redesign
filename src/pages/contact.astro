@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { site } from "@/config/site.js";
+import { site } from "@/config.js";
 const { contact } = site;
 ---
 
@@ -8,13 +8,11 @@ const { contact } = site;
   title="Contact"
   description="Contact Instru-Met Corporation — phone, email, fax, and our service and production managers."
 >
-  <section class="border-b border-border bg-muted">
-    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-      <p class="text-sm font-semibold tracking-wide text-accent">Contact</p>
-      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-        Talk to our engineers
-      </h1>
-      <p class="mt-4 max-w-2xl text-lg text-muted-foreground">
+  <section class="section section--muted">
+    <div class="site-container page-header">
+      <p class="eyebrow">Contact</p>
+      <h1 class="page-header__title">Talk to our engineers</h1>
+      <p class="page-header__intro">
         Schedule a calibration, request a repair, or ask about remanufactured
         equipment. We typically respond in under 24 hours.
       </p>
@@ -22,41 +20,41 @@ const { contact } = site;
   </section>
 
   <section>
-    <div class="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8">
+    <div class="site-container contact-grid">
       {/* Details */}
       <div>
-        <div class="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
-          <div class="bg-card p-6">
-            <p class="text-sm text-muted-foreground">Phone</p>
-            <a href={contact.phoneHref} class="mt-1 block text-lg font-semibold text-foreground hover:text-accent">{contact.phone}</a>
+        <div class="detail-grid">
+          <div class="detail-grid__cell">
+            <p class="detail-grid__label">Phone</p>
+            <a href={contact.phoneHref} class="detail-grid__value">{contact.phone}</a>
           </div>
-          <div class="bg-card p-6">
-            <p class="text-sm text-muted-foreground">Fax</p>
-            <p class="mt-1 text-lg font-semibold text-foreground">{contact.fax}</p>
+          <div class="detail-grid__cell">
+            <p class="detail-grid__label">Fax</p>
+            <p class="detail-grid__value">{contact.fax}</p>
           </div>
-          <div class="bg-card p-6">
-            <p class="text-sm text-muted-foreground">Email</p>
-            <a href={`mailto:${contact.email}`} class="mt-1 block text-lg font-semibold text-foreground hover:text-accent">{contact.email}</a>
+          <div class="detail-grid__cell">
+            <p class="detail-grid__label">Email</p>
+            <a href={`mailto:${contact.email}`} class="detail-grid__value">{contact.email}</a>
           </div>
-          <div class="bg-card p-6">
-            <p class="text-sm text-muted-foreground">Address</p>
-            <address class="mt-1 not-italic text-lg font-semibold text-foreground">
+          <div class="detail-grid__cell">
+            <p class="detail-grid__label">Address</p>
+            <address class="detail-grid__value">
               {contact.address.street}<br />
               {contact.address.city}, {contact.address.state} {contact.address.zip}
             </address>
           </div>
         </div>
 
-        <h2 class="mt-10 text-sm font-semibold tracking-wide text-accent">Key contacts</h2>
-        <ul class="mt-3 divide-y divide-border border-t border-border">
+        <h2 class="eyebrow contacts-title">Contacts</h2>
+        <ul class="contacts">
           {
             site.people.map((p) => (
-              <li class="flex flex-col py-4 sm:flex-row sm:items-center sm:justify-between">
+              <li>
                 <div>
-                  <p class="font-medium text-foreground">{p.name}</p>
-                  <p class="text-sm text-muted-foreground">{p.role}</p>
+                  <p class="contacts__name">{p.name}</p>
+                  <p class="contacts__role">{p.role}</p>
                 </div>
-                <a href={`mailto:${p.email}`} class="text-sm font-medium text-accent hover:underline">{p.email}</a>
+                <a href={`mailto:${p.email}`} class="contacts__email">{p.email}</a>
               </li>
             ))
           }
@@ -64,32 +62,32 @@ const { contact } = site;
       </div>
 
       {/* Simple message form — wired for Netlify Forms (progressive; static build). */}
-      <div class="border border-border bg-card p-6 lg:p-8">
-        <h2 class="text-lg font-semibold text-foreground">Send us a message</h2>
+      <div class="form-panel">
+        <h2 class="form-panel__title">Send us a message</h2>
         <form
           name="contact"
           method="POST"
           data-netlify="true"
           netlify-honeypot="bot-field"
-          class="mt-6 space-y-5"
+          class="form"
         >
           <input type="hidden" name="form-name" value="contact" />
-          <p class="hidden">
+          <p class="is-hidden">
             <label>Don't fill this out: <input name="bot-field" /></label>
           </p>
           <div>
-            <label for="name" class="block text-sm font-medium text-foreground">Name</label>
-            <input id="name" name="name" type="text" required class="mt-1.5 block w-full rounded-btn border border-input bg-background px-3 py-2 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-ring" />
+            <label for="name" class="form__label">Name</label>
+            <input id="name" name="name" type="text" required class="form__input" />
           </div>
           <div>
-            <label for="email" class="block text-sm font-medium text-foreground">Email</label>
-            <input id="email" name="email" type="email" required class="mt-1.5 block w-full rounded-btn border border-input bg-background px-3 py-2 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-ring" />
+            <label for="email" class="form__label">Email</label>
+            <input id="email" name="email" type="email" required class="form__input" />
           </div>
           <div>
-            <label for="message" class="block text-sm font-medium text-foreground">Message</label>
-            <textarea id="message" name="message" rows="5" required class="mt-1.5 block w-full rounded-btn border border-input bg-background px-3 py-2 text-sm text-foreground focus:border-accent focus:outline-none focus:ring-2 focus:ring-ring"></textarea>
+            <label for="message" class="form__label">Message</label>
+            <textarea id="message" name="message" rows="5" required class="form__input"></textarea>
           </div>
-          <button type="submit" class="inline-flex h-10 items-center rounded-btn bg-accent px-5 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-hover">
+          <button type="submit" class="btn btn--primary btn--md">
             Send message
           </button>
         </form>

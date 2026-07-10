@@ -31,7 +31,7 @@ npm run preview  # serve the build locally
 ## Where to edit things
 
 - **Brand text, contact details, social links, and the nav structure** live in
-  one place: [`src/config/site.js`](src/config/site.js). Nothing in the
+  one place: [`src/config.js`](src/config.js). Nothing in the
   components hard-codes these.
 - **Colors** are all CSS variables in
   [`src/styles/globals.css`](src/styles/globals.css). No component contains a

@@ -1,41 +1,31 @@
 ---
 import SiteNav from "@/components/nav/SiteNav.tsx";
-import { site, nav } from "@/config/site.js";
+import { site, nav } from "@/config.js";
 ---
 
-<header class="sticky top-0 z-50 bg-card">
+<header class="site-header">
   {/* Upper tier */}
-  <div class="border-b border-border">
-    <div
-      class="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:px-8"
-    >
-      <a href="/" class="flex items-center gap-3" aria-label={`${site.wordmark} home`}>
-        <img src="/logo.svg" alt="" width="36" height="36" class="h-9 w-9" />
-        <span class="flex flex-col leading-none">
-          <span class="text-xl font-bold tracking-tight text-foreground"
-            >{site.wordmark}</span
-          >
-          <span class="mt-0.5 text-xs text-muted-foreground">{site.tagline}</span>
+  <div class="site-header__tier">
+    <div class="site-container site-header__bar">
+      <a href="/" class="brand" aria-label={`${site.wordmark} home`}>
+        <img src="/logo.svg" alt="" width="36" height="36" class="brand__logo" />
+        <span class="brand__text">
+          <span class="brand__name">{site.wordmark}</span>
+          <span class="brand__tagline">{site.tagline}</span>
         </span>
       </a>
 
-      <div class="ml-auto flex items-center gap-4">
-        <a
-          href={site.contact.phoneHref}
-          class="hidden text-sm font-medium text-muted-foreground hover:text-accent sm:inline"
+      <div class="site-header__actions">
+        <a href={site.contact.phoneHref} class="site-header__phone"
           >{site.contact.phone}</a
         >
-        <a
-          href="/contact"
-          class="inline-flex h-9 items-center rounded-btn bg-accent px-4 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-hover"
-          >Contact</a
-        >
+        <a href="/contact" class="btn btn--sm btn--primary">Contact</a>
       </div>
     </div>
   </div>
 
   {/* Lower tier — interactive nav island (mega-menu + mobile hamburger) */}
-  <div class="border-b border-border">
+  <div class="site-header__tier">
     <SiteNav nav={nav} client:load />
   </div>
 </header>

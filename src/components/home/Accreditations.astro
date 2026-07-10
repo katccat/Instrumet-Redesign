@@ -2,7 +2,7 @@
 // Accreditations / certifications — a vertical array. A2LA is the most
 // important accreditation and is featured prominently at the top.
 import SectionHeading from "@/components/SectionHeading.astro";
-import { site } from "@/config/site.js";
+import { site } from "@/config.js";
 
 const standards = [
   {
@@ -24,43 +24,41 @@ const standards = [
 ];
 ---
 
-<section class="border-b border-border">
-  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+<section class="section">
+  <div class="site-container section-inner">
     <SectionHeading
       eyebrow="Accreditations & Certifications"
       title="Accredited where it counts"
       intro="Our calibrations are traceable to NIST and performed to internationally recognized standards."
     />
 
-    <div class="mt-12 flex flex-col gap-4">
+    <div class="accreditations">
       {/* Featured: A2LA */}
       <a
         href={site.a2laDirectoryUrl}
         target="_blank"
         rel="noopener noreferrer"
-        class="group flex flex-col items-center gap-6 border-2 border-accent bg-accent-soft p-8 transition-colors hover:bg-background sm:flex-row"
+        class="accreditation-featured"
       >
         <img
           src="/images/a2la-accredited.png"
           alt="A2LA Accredited — Certificate #1377.01"
           width="180"
           height="151"
-          class="h-auto w-40 shrink-0"
+          class="accreditation-featured__logo"
         />
-        <div class="text-center sm:text-left">
-          <h3 class="mt-1 text-xl font-semibold text-foreground">
+        <div class="accreditation-featured__body">
+          <h3 class="accreditation-featured__title">
             A2LA Accredited Calibration Laboratory · Cert #1377.01
           </h3>
-          <p class="mt-2 max-w-2xl text-sm text-muted-foreground">
+          <p class="accreditation-featured__text">
             Independently accredited by the American Association for Laboratory
             Accreditation for calibration — your assurance of competence,
             impartiality, and traceable results. View our public scope in the
             A2LA directory.
           </p>
         </div>
-        <span
-          class="ml-auto hidden shrink-0 text-accent transition-transform group-hover:translate-x-1 sm:block"
-        >
+        <span class="accreditation-featured__arrow">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
         </span>
       </a>
@@ -68,11 +66,9 @@ const standards = [
       {/* Vertical array of standards */}
       {
         standards.map((s) => (
-          <div class="flex flex-col gap-2 border border-border bg-card p-6 sm:flex-row sm:items-center sm:justify-between">
-            <p class="font-medium text-foreground">{s.scope}</p>
-            <p class="shrink-0 text-sm font-semibold tracking-wide text-accent">
-              {s.refs}
-            </p>
+          <div class="accreditation-row">
+            <p class="accreditation-row__scope">{s.scope}</p>
+            <p class="accreditation-row__refs">{s.refs}</p>
           </div>
         ))
       }

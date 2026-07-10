@@ -8,13 +8,13 @@
 export const site = {
   // Wordmark shown next to the logo. The company's real name is "Instru-Met";
   // change this single value to restyle the wordmark everywhere.
-  wordmark: "Instru-Met",
+  wordmark: "Instru·Met",
   companyName: "Instru-Met Corporation",
   tagline: "50 years of service",
   foundedYear: 1974,
 
   // Separator used when composing <title> text (see BaseLayout.astro).
-  titleSeparator: "·",
+  titleSeparator: "|",
   titleSuffix: "Strength of Materials Test Equipment",
 
   contact: {
@@ -112,7 +112,7 @@ export const nav = [
             "On-site and in-lab repair for load cells, frames, and grips — typical response under 24 hours.",
           href: "/services#repair",
           cta: "Start Now",
-          image: "/images/repair-tensile-tester.jpg",
+          image: "/images/repair-tensile-tester.webp",
           imageAlt: "Tensile tester repair",
         },
       ],

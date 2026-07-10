@@ -2,7 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Media from "@/components/Media.astro";
 import Button from "@/components/ui/Button.astro";
-import { site } from "@/config/site.js";
+import { site } from "@/config.js";
 
 const years = new Date().getFullYear() - site.foundedYear;
 
@@ -36,38 +36,28 @@ const industries = [
   title="About"
   description="Founded in 1974, Instru-Met Corporation remanufactures, repairs, and calibrates Instron and other testing equipment from its Union, NJ facility."
 >
-  <section class="border-b border-border bg-muted">
-    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-      <p class="text-sm font-semibold tracking-wide text-accent">About us</p>
-      <h1 class="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+  <section class="section section--muted">
+    <div class="site-container page-header">
+      <p class="eyebrow">About us</p>
+      <h1 class="page-header__title">
         Keeping classic testing machines accurate since {site.foundedYear}
       </h1>
-      <p class="mt-4 max-w-2xl text-lg text-muted-foreground">
+      <p class="page-header__intro">
         {site.companyName} specializes in remanufactured and upgraded Instron load
         frames — privately held and American owned &amp; operated from day one.
       </p>
     </div>
   </section>
 
-  <section class="border-b border-border">
-    <div class="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
+  <section class="section">
+    <div class="site-container section-grid">
       <div>
-        <!-- <div class="grid grid-cols-2 gap-px overflow-hidden border border-border bg-border">
-          {
-            facts.map((f) => (
-              <div class="bg-card p-6">
-                <dt class="text-sm text-muted-foreground">{f.label}</dt>
-                <dd class="mt-1 text-lg font-semibold text-foreground">{f.value}</dd>
-              </div>
-            ))
-          }
-        </div> -->
-        <div class="mt-6 aspect-[4/3] overflow-hidden border border-border">
+        <div class="frame frame--4-3 about-media">
           <Media src="/images/load-cell-repair.jpg" alt="Load cell repair at Instru-Met, Union NJ" label="workshop photo" />
         </div>
       </div>
 
-      <div class="space-y-5 text-base leading-relaxed text-muted-foreground">
+      <div class="content-stack">
         <p>
           We provide accredited tension/compression calibration for load cells,
           extensometers, temperature, crosshead speed, and displacement, plus
@@ -84,19 +74,19 @@ const industries = [
         </p>
 
         <div>
-          <h2 class="text-sm font-semibold tracking-wide text-accent">Brands we service</h2>
-          <div class="mt-3 flex flex-wrap gap-2">
+          <h2 class="eyebrow">Brands we service</h2>
+          <div class="chip-row">
             {brands.map((b) => (
-              <span class="rounded-full border border-input px-3 py-1 text-xs font-medium text-muted-foreground">{b}</span>
+              <span class="chip">{b}</span>
             ))}
           </div>
         </div>
 
         <div>
-          <h2 class="text-sm font-semibold tracking-wide text-accent">Industries we serve</h2>
-          <div class="mt-3 flex flex-wrap gap-2">
+          <h2 class="eyebrow">Industries we serve</h2>
+          <div class="chip-row">
             {industries.map((i) => (
-              <span class="rounded-full border border-input px-3 py-1 text-xs font-medium text-muted-foreground">{i}</span>
+              <span class="chip">{i}</span>
             ))}
           </div>
         </div>
@@ -104,9 +94,9 @@ const industries = [
     </div>
   </section>
 
-  <section class="bg-muted">
-    <div class="mx-auto flex max-w-7xl flex-col items-start gap-4 px-4 py-14 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-      <p class="text-lg font-medium text-foreground">Work with a team that supports your equipment for life.</p>
+  <section class="cta-band cta-band--muted">
+    <div class="site-container cta-band__inner">
+      <p class="cta-band__text">Work with a team that supports your equipment for life.</p>
       <Button href="/contact">Get in touch</Button>
     </div>
   </section>

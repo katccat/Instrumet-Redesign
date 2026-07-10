@@ -13,28 +13,20 @@ const customers = [
 ];
 ---
 
-<section class="border-b border-border">
-  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+<section class="section">
+  <div class="site-container section-inner">
     <SectionHeading
-      eyebrow="Our customers"
+      eyebrow="Our clients"
       title="Trusted across demanding industries"
     />
-    <ul
-      class="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5"
-    >
+    <ul class="customer-grid">
       {
         customers.map((c) => (
-          <li class="flex h-28 items-center justify-center px-6">
+          <li class="customer-grid__item">
             {c.logo ? (
-              <img
-                src={c.logo}
-                alt={c.name}
-                class="max-h-20 w-auto transition hover:opacity-80 hover:grayscale-0"
-              />
+              <img src={c.logo} alt={c.name} class="customer-logo" />
             ) : (
-              <span class="text-center text-lg font-semibold tracking-tight text-muted-foreground transition-colors hover:text-foreground">
-                {c.name}
-              </span>
+              <span class="customer-wordmark">{c.name}</span>
             )}
           </li>
         ))
