@@ -29,7 +29,7 @@
 
 :root {
   /* Surfaces */
-  --background: #ffffff;
+  --background: #ecebeb;
   --foreground: #15181e;
   --muted: #f4f6f9;
   --muted-foreground: #59626f;
@@ -42,14 +42,14 @@
   --ring: #4169e1;
 
   /* Accent — royal blue */
-  --accent: #4977ff;
+  --accent: #2c489a;
   --accent-foreground: #ffffff;
   --accent-hover: #3355c9;
   --accent-soft: #eef2fd;
 
   /* Rounding — used sparingly (buttons, pills, small controls) */
   --radius: 999px;
-
+  --radius: 0;
   --font-sans-stack: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
 }
