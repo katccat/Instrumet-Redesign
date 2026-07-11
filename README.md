@@ -1,4 +1,4 @@
-# Instru-Met — website
+# Instru-Met website
 
 A static, multi-page marketing site for Instru-Met Corporation, built with Astro, tokened CSS, and shadcn/ui-style React islands. Light mode only for now, but dark mode could easily be implemented.
 
