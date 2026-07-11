@@ -197,13 +197,11 @@ export default function SiteNav({ nav }) {
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           onClick={() => setMobileOpen((v) => !v)}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-            {mobileOpen ? (
-              <path d="M18 6 6 18M6 6l12 12" />
-            ) : (
-              <path d="M3 12h18M3 6h18M3 18h18" />
-            )}
-          </svg>
+          <span className="nav-mobile-toggle__box" aria-hidden="true">
+            <span className="nav-mobile-toggle__bar nav-mobile-toggle__bar--top" />
+            <span className="nav-mobile-toggle__bar nav-mobile-toggle__bar--mid" />
+            <span className="nav-mobile-toggle__bar nav-mobile-toggle__bar--bottom" />
+          </span>
         </button>
       </div>
 

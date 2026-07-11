@@ -6,6 +6,7 @@ heroImage: /images/uploads/instron-4465-instron-4483-and-all-instron-4400-series
 tags:
   - "Load Frames"
   - "Repair & Service"
+  - "Instron"
 ---
 
 Instru-Met has serviced, calibrated, repaired or remanufactured Instron 4400 Series Test Frames at many fortune 500 companies.

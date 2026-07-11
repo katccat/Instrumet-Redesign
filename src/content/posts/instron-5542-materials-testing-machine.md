@@ -7,6 +7,7 @@ tags:
   - "Load Frames"
   - "Repair & Service"
   - "Calibration"
+  - "Instron"
 ---
 
 We service and calibrate all Instron 5500 Series Test Frames. We have the largest selection of all classic repair parts for all Instron tester models and controller types. We repair and calibrate the following 5500 Series load frames:

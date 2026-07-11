@@ -6,6 +6,7 @@ heroImage: /images/uploads/universal-testing-system-retrofit.jpeg
 tags:
   - "Load Frames"
   - "Retrofit & Upgrades"
+  - "Instron"
 ---
 
 Upgrade Instron System

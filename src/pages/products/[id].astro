@@ -1,0 +1,34 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Media from "@/components/Media.astro";
+
+export async function getStaticPaths() {
+  const products = await getCollection("products");
+  return products.map((product) => ({ params: { id: product.id }, props: { product } }));
+}
+
+const { product } = Astro.props;
+const { Content } = await render(product);
+---
+
+<BaseLayout title={product.data.name} description={product.data.summary}>
+  <article class="section">
+    <div class="site-container article">
+      <a href="/products" class="article__back">← All products</a>
+      <h1 class="article__title">{product.data.name}</h1>
+
+      {
+        product.data.image && (
+          <div class="frame frame--16-9 article__hero">
+            <Media src={product.data.image} alt={product.data.name} label="product photo" loading="eager" />
+          </div>
+        )
+      }
+
+      <div class="prose article__body">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

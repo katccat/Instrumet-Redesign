@@ -9,6 +9,7 @@ heroImage: /images/repair-instron.jpg
 tags:
   - "Load Frames"
   - "Repair & Service"
+  - "Instron"
 ---
 
 Is your Instron 5500 tensile testing machine reaching the end of its life? Don't

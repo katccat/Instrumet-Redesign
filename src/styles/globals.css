@@ -131,7 +131,11 @@ video {
   display: block;
   max-width: 100%;
 }
-img {
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img, svg {
   user-select: none;
 }
 button,

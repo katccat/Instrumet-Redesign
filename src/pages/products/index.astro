@@ -62,7 +62,9 @@ const byCategory = (cat) =>
                   />
                 </div>
                 <div class="card__body">
-                  <h3 class="card__title">{product.data.name}</h3>
+                  <h3 class="card__title">
+                    <a href={`/products/${product.id}`}>{product.data.name}</a>
+                  </h3>
                   <p class="card__text">{product.data.summary}</p>
                 </div>
               </article>

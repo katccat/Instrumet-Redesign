@@ -2,7 +2,7 @@
 title: "Load Cell Calibration Service"
 description: "Spring has arrived! Please contact us for your preventative maintenance and calibration needs."
 pubDate: 2018-05-12
-heroImage: /images/uploads/load-cell-calibration-service.jpg
+heroImage: /images/calibration.jpg
 tags:
   - "Calibration"
   - "Load Cells"

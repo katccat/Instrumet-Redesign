@@ -41,7 +41,7 @@ const fmt = (d: Date) =>
   <section class="section section--muted">
     <div class="site-container page-header">
       <p class="eyebrow">Articles</p>
-      <h1 class="page-header__title">Latest News &amp; Resources</h1>
+      <h1 class="page-header__title">News, Resources &amp; Videos</h1>
       <p class="page-header__intro">
         Guides, product write-ups, and news from our engineers.
       </p>
@@ -81,7 +81,7 @@ const fmt = (d: Date) =>
             const cardTags = (post.data.tags ?? []).filter((t) => sharedTags.has(t));
             return (
             <article class="card" data-tags={(post.data.tags ?? []).join("|")}>
-              <a href={href} class="card__media">
+              <div class="card__media">
                 <Media
                   src={hasVideo ? thumb : post.data.heroImage}
                   alt={post.data.title}
@@ -94,7 +94,7 @@ const fmt = (d: Date) =>
                     </svg>
                   </span>
                 )}
-              </a>
+              </div>
               <div class="card__body">
                 <p class="card__meta">
                   {hasVideo && <span class="card__badge">Video</span>}

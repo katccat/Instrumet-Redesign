@@ -4,7 +4,7 @@ category: Load Frames
 summary: >-
   Remanufactured and upgraded Instron load frames — tabletop, floor-standing,
   multi-head, and retrofit — tailored, tuned, and built to your specifications.
-image: /images/load-frame.jpg
+image: /images/load-frame.png
 order: 31
 ---
 

@@ -19,7 +19,7 @@
 }
 /* Each horizontal band of the header (upper brand tier + lower nav tier). */
 .site-header__tier {
-  border-bottom: 1px solid var(--border);
+  /* border-bottom: 1px solid var(--border); */
 }
 .site-header__bar {
   display: flex;
@@ -81,8 +81,11 @@
 /* ---- Nav shell / layout ---- */
 .site-nav {
   position: relative;
+  background-color: var(--accent);
+  color: var(--background);
 }
 .nav-bar {
+  
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -113,14 +116,14 @@
   font-family: var(--font-syne);
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--foreground);
   transition: color 0.15s;
 }
 .nav-link:hover {
-  color: var(--accent);
+  /* color: var(--accent); */
+  color: white;
 }
 .nav-link[aria-expanded="true"] {
-  color: var(--accent);
+  color: white;
 }
 /* Underline shown under an open trigger. */
 .nav-link__indicator {
@@ -299,8 +302,34 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem;
-  color: var(--foreground);
+  padding: 1rem;
+  color: var(--background);
+}
+.nav-mobile-toggle__box {
+  --bar-height: 2px;
+  --box-size: 16px;
+  --bar-offset: calc((var(--box-size) - var(--bar-height)) / 2);
+  width: 24px;
+  height: var(--box-size);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.nav-mobile-toggle__bar {
+  width: 100%;
+  height: var(--bar-height);
+  background-color: currentColor;
+  border-radius: var(--bar-height);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.nav-mobile-toggle[aria-expanded="true"] .nav-mobile-toggle__bar--top {
+  transform: translateY(var(--bar-offset)) rotate(45deg);
+}
+.nav-mobile-toggle[aria-expanded="true"] .nav-mobile-toggle__bar--mid {
+  opacity: 0;
+}
+.nav-mobile-toggle[aria-expanded="true"] .nav-mobile-toggle__bar--bottom {
+  transform: translateY(calc(var(--bar-offset) * -1)) rotate(-45deg);
 }
 @media (min-width: 1024px) {
   .nav-mobile-toggle {
@@ -308,8 +337,20 @@
   }
 }
 .nav-mobile {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 40;
   border-top: 1px solid var(--border);
   background: var(--background);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  animation: nav-mobile-fade-in 0.3s ease;
+}
+@keyframes nav-mobile-fade-in {
+  from {
+    opacity: 0;
+  }
 }
 @media (min-width: 1024px) {
   .nav-mobile {
