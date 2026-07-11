@@ -5,6 +5,7 @@ videoUrl: https://youtu.be/xts8Uqh8ysU
 tags:
   - "Calibration"
   - "Load Cells"
+  - "Video"
 ---
 
 

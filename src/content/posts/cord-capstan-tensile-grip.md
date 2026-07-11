@@ -9,6 +9,7 @@ videoUrl: https://www.youtube.com/watch?v=wJ0MyxuzkhA
 tags:
   - "Grips & Fixtures"
   - "Webbing & Capstan Grips"
+  - "Video"
 ---
 
 Rated to 2.5 kN (500 lbf), Instru-Met's Capstan Grips are engineered for

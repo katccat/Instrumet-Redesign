@@ -5,6 +5,7 @@ videoUrl: https://www.youtube.com/watch?v=SP12Yc88Fjo
 tags:
   - "Grips & Fixtures"
   - "Instron"
+  - "Video"
 ---
 
 
