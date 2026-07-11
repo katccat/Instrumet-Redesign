@@ -9,8 +9,7 @@ image: /images/load-cell-repair.jpg
 order: 10
 ---
 
-Instru-Met repairs Instron™ load cells, and many others, that may be
-unresponsive, unbalanced, and/or fail to give accurate force readings.
+Instru-Met repairs Instron™ load cells, and many others, that may be unresponsive, unbalanced, and/or fail to give accurate force readings.
 
 Types we service include:
 

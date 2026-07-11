@@ -6,10 +6,11 @@ description: >-
 pubDate: 2026-01-30
 heroImage: /images/calibration.jpg
 tags:
-  - Calibration
-  - Accreditation
-  - ASTM E4
+  - "Calibration"
+  - "Load Cells"
+  - "Extensometers"
 ---
+<!-- accredited calibration, ASTM E2309, ASTM E2658, ASTM E4, compression, displacement calibration, force, force measurement, ISO 17025, load cell, load cell repair, recalibration, s-type cell, speed calibration, strength calibration, tensile test repair, tensile tester, tensile testing, tension, tension test, verification of speed -->
 
 Regular calibration is an essential safeguard for the accuracy of tensile testing
 machines, which are vital for characterizing the mechanical behavior of

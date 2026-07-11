@@ -2,10 +2,33 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Media from "@/components/Media.astro";
+import { getYouTubeId, getYouTubeThumbnail } from "@/lib/youtube";
 
 const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+// A post's video is embedded on its own article page (see [id].astro) — the
+// card links internally like any other post, but shows the video thumbnail and
+// a play badge to advertise it. For YouTube we auto-derive the thumbnail;
+// otherwise we fall back to the post's heroImage.
+function videoThumb(post: (typeof posts)[number]) {
+  if (!post.data.videoUrl) return null;
+  const ytId = getYouTubeId(post.data.videoUrl);
+  return ytId ? getYouTubeThumbnail(ytId) : post.data.heroImage;
+}
+
+// Only surface tags shared by more than one post — a filter/chip is only
+// useful when it groups posts together. `sharedTags` gates both the filter
+// pills and the per-card chips; `tags` is the alphabetized pill list.
+const tagCounts = new Map<string, number>();
+for (const p of posts) {
+  for (const t of p.data.tags ?? []) tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
+}
+const sharedTags = new Set(
+  [...tagCounts].filter(([, n]) => n > 1).map(([t]) => t)
+);
+const tags = [...sharedTags].sort((a, b) => a.localeCompare(b));
 
 const fmt = (d: Date) =>
   d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
@@ -27,31 +50,116 @@ const fmt = (d: Date) =>
 
   <section>
     <div class="site-container section-inner">
-      <div class="card-grid">
+      {
+        tags.length > 0 && (
+          <div class="pill-row article-filter" role="tablist" aria-label="Filter articles by tag" data-article-filter>
+            <a href="/articles/" class="pill" role="tab" aria-selected="true" data-tag-all>
+              All
+            </a>
+            {tags.map((t) => (
+              <a
+                href={`/articles/?tag=${encodeURIComponent(t)}`}
+                class="pill"
+                role="tab"
+                aria-selected="false"
+                data-tag-pill={t}
+              >
+                {t}
+              </a>
+            ))}
+          </div>
+        )
+      }
+
+      <div class="card-grid" data-article-grid>
         {
-          posts.map((post) => (
-            <article class="card">
-              <a href={`/articles/${post.id}`} class="card__media">
-                <Media src={post.data.heroImage} alt={post.data.title} label="article photo" />
+          posts.map((post) => {
+            const thumb = videoThumb(post);
+            const hasVideo = thumb !== null;
+            const href = `/articles/${post.id}`;
+            // Chips mirror the filter pills: only tags shared with other posts.
+            const cardTags = (post.data.tags ?? []).filter((t) => sharedTags.has(t));
+            return (
+            <article class="card" data-tags={(post.data.tags ?? []).join("|")}>
+              <a href={href} class="card__media">
+                <Media
+                  src={hasVideo ? thumb : post.data.heroImage}
+                  alt={post.data.title}
+                  label={hasVideo ? "video thumbnail" : "article photo"}
+                />
+                {hasVideo && (
+                  <span class="card__play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </span>
+                )}
               </a>
               <div class="card__body">
-                <p class="card__meta">{fmt(post.data.pubDate)}</p>
+                <p class="card__meta">
+                  {hasVideo && <span class="card__badge">Video</span>}
+                  {fmt(post.data.pubDate)}
+                </p>
                 <h2 class="card__title">
-                  <a href={`/articles/${post.id}`}>{post.data.title}</a>
+                  <a href={href}>{post.data.title}</a>
                 </h2>
-                <p class="card__text">{post.data.description}</p>
-                {post.data.tags && (
+                {post.data.description && <p class="card__text">{post.data.description}</p>}
+                {cardTags.length > 0 && (
                   <div class="tag-row card__tags">
-                    {post.data.tags.slice(0, 3).map((t) => (
-                      <span class="tag">{t}</span>
+                    {cardTags.slice(0, 3).map((t) => (
+                      <a class="tag" href={`/articles/?tag=${encodeURIComponent(t)}`}>
+                        {t}
+                      </a>
                     ))}
                   </div>
                 )}
               </div>
             </article>
-          ))
+            );
+          })
         }
       </div>
+
+      <p class="article-filter__empty" data-article-empty hidden>
+        No articles match this tag.
+      </p>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  // Client-side tag filtering driven by the `?tag=` query param — the site is
+  // statically rendered, so all cards ship in the HTML and we show/hide here.
+  //
+  // The site uses Astro's <ClientRouter />, which handles the pill/chip links as
+  // client-side navigations and swaps the DOM. Inline module scripts don't
+  // re-run after a swap, so we hook `astro:page-load` (fires on first load AND
+  // after every navigation) and re-read the URL each time. No manual click
+  // handling needed — the router does the navigation, we react to it.
+  function applyTagFilter() {
+    const filter = document.querySelector<HTMLElement>("[data-article-filter]");
+    const grid = document.querySelector<HTMLElement>("[data-article-grid]");
+    const empty = document.querySelector<HTMLElement>("[data-article-empty]");
+    if (!grid) return;
+
+    const active = new URLSearchParams(location.search).get("tag");
+    let visible = 0;
+
+    grid.querySelectorAll<HTMLElement>(".card").forEach((card) => {
+      const tags = (card.dataset.tags ?? "").split("|").filter(Boolean);
+      const show = !active || tags.includes(active);
+      card.hidden = !show;
+      if (show) visible++;
+    });
+
+    filter?.querySelectorAll<HTMLElement>("[data-tag-pill], [data-tag-all]").forEach((pill) => {
+      const pillTag = pill.getAttribute("data-tag-pill");
+      const selected = active ? pillTag === active : pill.hasAttribute("data-tag-all");
+      pill.setAttribute("aria-selected", String(selected));
+    });
+
+    if (empty) empty.hidden = visible > 0;
+  }
+
+  document.addEventListener("astro:page-load", applyTagFilter);
+</script>

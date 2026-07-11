@@ -8,7 +8,4 @@ image: /images/bend-fixture.jpg
 order: 22
 ---
 
-Instru-Met supplies 3-point and 4-point bend fixtures for flexural testing,
-including ASTM D790 configurations. Fixtures attach directly to your load cell
-and accommodate a range of specimen sizes for plastics, composites, and other
-materials.
+Instru-Met supplies 3-point and 4-point bend fixtures for flexural testing, including ASTM D790 configurations. Fixtures attach directly to your load cell and accommodate a range of specimen sizes for plastics, composites, and other materials.

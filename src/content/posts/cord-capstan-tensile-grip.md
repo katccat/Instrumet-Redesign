@@ -5,17 +5,15 @@ description: >-
   tensile testing of twisted cords, braided lines, elastic tapes, and other
   flexible specimens.
 pubDate: 2025-06-06
+videoUrl: https://www.youtube.com/watch?v=wJ0MyxuzkhA
 tags:
-  - Grips & Fixtures
-  - Capstan Grips
-  - Cord Testing
+  - "Grips & Fixtures"
+  - "Webbing & Capstan Grips"
 ---
 
 Rated to 2.5 kN (500 lbf), Instru-Met's Capstan Grips are engineered for
 high-accuracy tensile testing of twisted cords, braided lines, elastic tapes,
-and other flexible specimens. Featuring a self-tightening spiral groove design,
-these grips apply even stress distribution, minimize slippage, and eliminate jaw
-breaks — delivering consistent, repeatable results under demanding test
+and other flexible specimens. Featuring a self-tightening spiral groove design, these grips apply even stress distribution, minimize slippage, and eliminate jaw breaks — delivering consistent, repeatable results under demanding test
 conditions.
 
 ## Key Features

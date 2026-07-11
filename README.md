@@ -1,7 +1,7 @@
 # Instru-Met — website
 
 A static, multi-page marketing site for Instru-Met Corporation, built with Astro,
-Tailwind CSS v4, and a few shadcn/ui-style React islands. Light mode only at
+hand-authored CSS, and a few shadcn/ui-style React islands. Light mode only at
 launch; token structure is dark-mode-ready.
 
 ## My Recommendations
@@ -10,8 +10,10 @@ For the sake of consistency proper indexing, the historic Intru-Met website from
 ## Stack
 
 - **Astro 5** — static multi-page output (default `output: 'static'`).
-- **Tailwind CSS v4** — via the official `@tailwindcss/vite` plugin. Tokens are
-  CSS-first (`src/styles/globals.css`).
+- **Hand-authored CSS** — no framework; tokens and shared styles live in
+  `src/styles/` (`globals.css` plus one stylesheet per concern: `layout.css`,
+  `nav.css`, `content.css`, `home.css`, `article.css`, `contact.css`,
+  `footer.css`, `ui.css`).
 - **React islands** (`@astrojs/react`) — only where interactivity is required:
   the nav mega-menu and the services pill-tabs.
 - **View Transitions** — Astro’s `<ClientRouter />` animates page-to-page nav.
@@ -37,10 +39,7 @@ npm run preview  # serve the build locally
   [`src/styles/globals.css`](src/styles/globals.css). No component contains a
   color literal — dark mode is a variable swap under
   `:root[data-theme="dark"]` (a commented stub is in the file).
-- **Content** is Markdown under `src/content/{posts,products,industries}/`. The
-  frontmatter fields are flat, string/enum/date only, and each collection is one
-  folder — so a git-based CMS (Sveltia / Decap) can be dropped in with no
-  refactor.
+- **Content** is Markdown under `src/content/{posts,products,industries}/`. The frontmatter fields are flat, string/enum/date only, and each collection is one folder — so a git-based CMS (Sveltia / Decap) can be dropped in with no refactor.
 
 ## Decisions & assumptions
 

@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Media from "@/components/Media.astro";
+import { getYouTubeId, getYouTubeEmbed } from "@/lib/youtube";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
@@ -10,6 +11,10 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+// When the post has a video, embed the player in the hero slot (falling back to
+// the static image if it isn't a recognizable YouTube URL).
+const ytId = post.data.videoUrl ? getYouTubeId(post.data.videoUrl) : null;
 const fmt = (d) =>
   d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
 ---
@@ -24,14 +29,29 @@ const fmt = (d) =>
         post.data.tags && (
           <div class="tag-row article__tags">
             {post.data.tags.map((t) => (
-              <span class="tag">{t}</span>
+              <a class="tag" href={`/articles/?tag=${encodeURIComponent(t)}`}>
+                {t}
+              </a>
             ))}
           </div>
         )
       }
 
       <div class="frame frame--16-9 article__hero">
-        <Media src={post.data.heroImage} alt={post.data.title} label="article photo" loading="eager" />
+        {
+          ytId ? (
+            <iframe
+              class="article__video"
+              src={getYouTubeEmbed(ytId)}
+              title={post.data.title}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            />
+          ) : (
+            <Media src={post.data.heroImage} alt={post.data.title} label="article photo" loading="eager" />
+          )
+        }
       </div>
 
       <div class="prose article__body">

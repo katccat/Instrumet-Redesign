@@ -148,6 +148,15 @@
   font-weight: 500;
   color: var(--accent);
 }
+/* Clickable tag chips (link to the filtered articles list). */
+a.tag {
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s;
+}
+a.tag:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
 .tag-row {
   display: flex;
   flex-wrap: wrap;
@@ -179,9 +188,14 @@
   color: var(--accent-foreground);
 }
 .pill-row {
+  margin-bottom: 2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+}
+.article-filter__empty {
+  margin-top: 2rem;
+  color: var(--muted-foreground);
 }
 
 /* ---- Cards (article & product listings) ---- */
@@ -191,10 +205,57 @@
   border: 1px solid var(--border);
   background: var(--card);
 }
+/* `display: flex` above beats the UA `[hidden]` rule, so re-hide explicitly
+   for JS-filtered cards on the articles list. */
+.card[hidden] {
+  display: none;
+}
 .card__media {
+  position: relative;
+  display: block;
   aspect-ratio: 16 / 10;
   overflow: hidden;
   background: var(--muted);
+}
+/* Play badge overlaid on video thumbnails. */
+.card__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: background-color 0.15s;
+}
+.card__play::before {
+  content: "";
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.55);
+  transition: background-color 0.15s;
+}
+.card__play svg {
+  position: relative;
+  margin-left: 0.2rem; /* optically center the triangle */
+}
+.card__media:hover .card__play::before {
+  background: var(--accent);
+}
+/* "Video" label in the card meta line. */
+.card__badge {
+  display: inline-block;
+  margin-right: 0.5rem;
+  border-radius: 9999px;
+  background: var(--accent-soft);
+  padding: 0.0625rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--accent);
+  vertical-align: middle;
 }
 .card__body {
   display: flex;

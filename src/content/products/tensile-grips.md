@@ -7,10 +7,6 @@ summary: >-
 order: 20
 ---
 
-Instru-Met offers grips in a variety of types and sizes for testing all types of
-materials. Whether you are testing metals, plastics, films, textiles, or
-composites, we can supply — or build — a gripping solution matched to your
-specimen and testing machine.
+Instru-Met offers grips in a variety of types and sizes for testing all types of materials. Whether you are testing metals, plastics, films, textiles, or composites, we can supply — or build — a gripping solution matched to your specimen and testing machine.
 
-Existing grips and fixtures from your current setup can often be reused, helping
-you save money when you upgrade.
+Existing grips and fixtures from your current setup can often be reused, helping you save money when you upgrade.

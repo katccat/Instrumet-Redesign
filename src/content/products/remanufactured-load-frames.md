@@ -8,14 +8,9 @@ image: /images/load-frame.jpg
 order: 31
 ---
 
-Instru-Met specializes in remanufactured and upgraded Instron load frames. With
-over 50 years of expertise, an in-house machine shop, and strong partnerships, we
-tailor, tune, and build tensile testers precisely to your specifications —
-mechanically, electrically, and operationally.
+Instru-Met specializes in remanufactured and upgraded Instron load frames. With over 50 years of expertise, an in-house machine shop, and strong partnerships, we tailor, tune, and build tensile testers precisely to your specifications — mechanically, electrically, and operationally.
 
-We service Instron frames from 1946 to the present, including Models 1000, 1120,
-1130, 4200, 4300, and 4500 Series, and maintain a large inventory of hard-to-find
-parts for frames that are no longer produced.
+We service Instron frames from 1946 to the present, including Models 1000, 1120, 1130, 4200, 4300, and 4500 Series, and maintain a large inventory of hard-to-find parts for frames that are no longer produced.
 
 Frame configurations include:
 

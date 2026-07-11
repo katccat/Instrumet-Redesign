@@ -15,9 +15,9 @@ const sizeAlias = { default: "md" };
 const v = variantAlias[variant] ?? variant;
 const s = sizeAlias[size] ?? size;
 
-const Tag = href ? "a" : "button";
+const Button = href ? "a" : "button";
 ---
 
-<Tag class:list={["btn", `btn--${v}`, `btn--${s}`, className]} href={href} {...rest}>
+<Button class:list={["btn", `btn--${v}`, `btn--${s}`, className]} href={href} {...rest}>
   <slot />
-</Tag>
+</Button>

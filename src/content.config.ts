@@ -9,10 +9,16 @@ const posts = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
   schema: z.object({
     title: z.string(),
-    description: z.string(),
+    // Optional: video posts link straight out to YouTube, so they carry no
+    // article description/body.
+    description: z.string().optional(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     heroImage: z.string().optional(),
+    // When set, the article card links out to this video (opens externally)
+    // instead of the internal article page. YouTube URLs get an auto-derived
+    // thumbnail; see src/lib/youtube.ts.
+    videoUrl: z.string().url().optional(),
     draft: z.boolean().default(false),
     tags: z.array(z.string()).optional(),
   }),

@@ -162,7 +162,9 @@ export default function SiteNav({ nav }) {
               item.panel ? (
                 <li key={item.label}>
                   <button
-                    ref={(el) => (triggerRefs.current[index] = el)}
+                    ref={(el) => {
+                      triggerRefs.current[index] = el;
+                    }}
                     type="button"
                     aria-expanded={openIndex === index}
                     aria-controls={`meganav-panel-${index}`}
