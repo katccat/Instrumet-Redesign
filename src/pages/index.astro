@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Banner from "@/components/Banner.astro";
 import Hero from "@/components/home/Hero.astro";
 import Accreditations from "@/components/home/Accreditations.astro";
 import Customers from "@/components/home/Customers.astro";
@@ -49,6 +50,13 @@ const serviceTabs = [
 ---
 
 <BaseLayout>
+  <Banner
+    src="/images/placeholder/zeiss-topics-tensile-testing-header.jpeg"
+    alt="Tensile testing equipment"
+    text="Strength of Materials Test Equipment"
+    diagonal
+    shadow
+  />
   <Hero />
   <Accreditations />
   <Customers />
@@ -56,7 +64,7 @@ const serviceTabs = [
   {/* Services with pill tabs */}
   <section class="section">
     <div class="site-container section-inner">
-      <p class="eyebrow">With you every step of the way</p>
+      <p class="eyebrow">Where we step in</p>
       <h2 class="section-title">Service &amp; Support</h2>
       <div class="services-tabs">
         <ServiceTabs tabs={serviceTabs} client:visible />

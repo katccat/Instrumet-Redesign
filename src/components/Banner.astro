@@ -1,0 +1,49 @@
+---
+import Media from "@/components/Media.astro";
+
+// Full-width banner image with optional centered overlay text.
+// Pass `diagonal` to clip the bottom edge at an angle.
+const { src, alt, label, text, diagonal, shadow } = Astro.props;
+---
+
+<div class:list={["banner", { "banner-diagonal": diagonal, shadow: shadow }]}>
+  <Media src={src} alt={alt} label={label} class="banner-cover" loading="eager" />
+  {text && <div class="banner-text">{text}</div>}
+</div>
+
+<style>
+  .banner {
+    position: relative;
+    width: 100%;
+    container-type: inline-size;
+    max-height: 300px;
+  }
+  /* Bottom edge sloping up toward the right. */
+  .banner-diagonal {
+    --banner-slope: 3cqi;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--banner-slope)), 0 100%);
+  }
+  .banner :global(.banner-cover) {
+    display: block;
+    margin: 0;
+    width: 100%;
+  }
+  .banner-text {
+    user-select: none;
+    font-family: var(--font-syne);
+    font-weight: 500;
+    letter-spacing: 0.05rem;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1rem;
+    color: #fff;
+    font-size: 6cqi;
+  }
+  .banner.shadow .banner-text {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+</style>
