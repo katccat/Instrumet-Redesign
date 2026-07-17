@@ -26,6 +26,20 @@ const fullTitle = title
     <link rel="preload" href="/fonts/syne/Syne-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <title>{fullTitle}</title>
     <ClientRouter />
+    <!-- Netlify Identity: catches invite/recovery tokens that land on any page
+         and redirects a logged-in user to the Decap CMS at /admin. -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
   </head>
   <body>
     <Header />
