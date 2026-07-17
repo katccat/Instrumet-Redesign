@@ -7,9 +7,9 @@
     <title>Content Manager</title>
   </head>
   <body>
-    <!-- Netlify Identity widget: handles login for the git-gateway backend -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <!-- Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Sveltia CMS — drop-in Decap replacement, reads the same config.yml.
+         In-page login (password-manager autofill works) + better pre-commit
+         media handling. -->
+    <script type="module" src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
   </body>
 </html>
