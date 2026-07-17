@@ -28,7 +28,7 @@ const fullTitle = title
     <ClientRouter />
     <!-- Netlify Identity: catches invite/recovery tokens that land on any page
          and redirects a logged-in user to the Decap CMS at /admin. -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script is:inline>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", (user) => {
